@@ -23,6 +23,7 @@ passport.use(
       proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
+      console.log("here");
       const existingUser = await User.findOne({ userId: profile.id });
       if (existingUser) {
         done(null, existingUser);

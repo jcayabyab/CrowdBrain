@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchExample } from "../actions";
 
 class Example extends Component {
-  componentDidMount() {
-    this.props.fetchExample();
-  }
-
   renderExample() {
     if (this.props.example.length < 1) {
       return <div>Waiting for request...</div>;
@@ -49,6 +44,5 @@ function mapStateToProps({ example, user }) {
 }
 
 export default connect(
-  mapStateToProps,
-  { fetchExample }
+  mapStateToProps
 )(Example);
