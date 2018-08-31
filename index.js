@@ -6,7 +6,6 @@ const cookieSession = require("cookie-session");
 const passport = require("passport");
 
 // models go here
-require("./models/Example");
 require("./models/User");
 
 // services go here
