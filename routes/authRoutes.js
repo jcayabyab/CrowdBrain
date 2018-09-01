@@ -1,6 +1,6 @@
 const passport = require("passport");
 
-const redirectAfterLogin = "/";
+const redirectAfterLogin = "/dashboard";
 const redirectAfterLogout = "/";
 
 module.exports = app => {

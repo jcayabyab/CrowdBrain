@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUser } from "../actions";
 
+import Landing from "./Landing";
 import NavBar from "./NavBar";
 
 class App extends Component {
@@ -16,7 +17,7 @@ class App extends Component {
         <BrowserRouter>
           <div className="container">
             <NavBar />
-            <Route exact path="/" component={() => <div>App</div>} />
+            <Route exact path="/" component={Landing} />
           </div>
         </BrowserRouter>
       </div>
