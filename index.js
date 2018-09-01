@@ -7,6 +7,10 @@ const passport = require("passport");
 
 // models go here
 require("./models/User");
+require("./models/Project");
+require("./models/Feature");
+require("./models/Subtask");
+require("./models/Comment");
 
 // services go here
 require("./services/passport");
@@ -26,6 +30,9 @@ app.use(passport.session());
 
 // routes go here
 require("./routes/authRoutes")(app);
+require("./routes/projectRoutes")(app);
+require("./routes/featureRoutes")(app);
+require("./routes/commentRoutes")(app);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

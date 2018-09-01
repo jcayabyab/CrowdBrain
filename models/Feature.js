@@ -5,7 +5,7 @@ const subtaskSchema = require("./Subtask");
 const featureSchema = new Schema({
   title: String,
   description: String,
-  dateCreated: number,
+  dateCreated: Number,
   subtasks: { type: [subtaskSchema], default: [] },
   _project: { type: Schema.Types.ObjectId, ref: "projects" }
 });
