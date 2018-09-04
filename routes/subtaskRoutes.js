@@ -8,9 +8,7 @@ module.exports = app => {
     const { featureID } = req.body;
 
     const feature = await Feature.findById(featureID);
-
     feature.subtasks.push({ title: "New Subtask" });
-
     feature.save();
 
     res.send(feature);
@@ -35,12 +33,22 @@ module.exports = app => {
     res.send(feature);
   });
 
-  app.post("/api/feature/subtask/complete", requireLogin, async (req, res) => {
+  app.post("/api/feature/subtask/delete", requireLogin, async (req, res) => {
+    const { featureID, subtaskID } = req.body;
+
+    const feature = await Feature.findById(featureID);
+    feature.subtasks.id(subtaskID).remove();
+    feature.save();
+
+    res.send(feature);
+  });
+
+  app.post("/api/feature/subtask/toggle", requireLogin, async (req, res) => {
     // handle formatting on front-end action creator
-    const { featureID, subtaskID, completed } = req.body;
+    const { featureID, subtaskID } = req.body;
 
     await findOneAndUpdate(
-      { _id: featureID, "subtasks._id": _id },
+      { _id: featureID, "subtasks._id": subtaskID },
       {
         $set: {
           "subtasks.$.completed": !completed
@@ -48,7 +56,7 @@ module.exports = app => {
       }
     );
 
-    const feature = findById(featureID);
+    const feature = await findById(featureID);
 
     res.send(feature);
   });
