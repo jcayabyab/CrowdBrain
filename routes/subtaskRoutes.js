@@ -37,8 +37,8 @@ module.exports = app => {
     const { featureID, subtaskID } = req.body;
 
     const feature = await Feature.findById(featureID);
-    feature.subtasks.id(subtaskID).remove();
-    feature.save();
+    await feature.subtasks.id(subtaskID).remove();
+    await feature.save();
 
     res.send(feature);
   });
@@ -47,14 +47,9 @@ module.exports = app => {
     // handle formatting on front-end action creator
     const { featureID, subtaskID } = req.body;
 
-    await findOneAndUpdate(
-      { _id: featureID, "subtasks._id": subtaskID },
-      {
-        $set: {
-          "subtasks.$.completed": !completed
-        }
-      }
-    );
+    const subtask = await find({ _id: featureID, "subtasks._id": subtaskID });
+    subtask.completed = !subtask.completed;
+    await subtask.save();
 
     const feature = await findById(featureID);
 

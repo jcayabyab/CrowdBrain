@@ -48,13 +48,13 @@ module.exports = app => {
     const { approved } = req.body;
     const commentID = req.body._id;
 
-    await Comment.findByIdAndUpdate(commentID, {
-      $set: { approved: !approved }
-      // add date approved only when true
-    });
+    const comment = await Comment.findById(commentID)
 
-    //returns edited feature
-    const comment = await comment.findById(commentID);
+    comment.approved = !comment.approved;
+    if(comment.approved) {
+      comment.dateApproved = new Date().getTime();
+    }
+    await comment.save();
 
     res.send(comment);
   });
