@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, { Component } from "react";
 import FeatureListItem from "./FeatureListItem";
-import LoadingWheel from "../../styled/LoadingWheel";
+import LoadingWheel from "../utils/LoadingWheel";
 
 class FeatureList extends Component {
   renderList() {

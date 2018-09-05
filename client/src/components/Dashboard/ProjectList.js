@@ -4,7 +4,7 @@ import _ from "lodash";
 
 import { getProjects } from "../../actions/projectActions";
 import ProjectListItem from "./ProjectListItem";
-import LoadingWheel from "../../styled/LoadingWheel";
+import LoadingWheel from "../utils/LoadingWheel";
 
 class ProjectList extends Component {
   componentDidMount() {

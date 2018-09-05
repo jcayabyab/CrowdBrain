@@ -8,7 +8,7 @@ import {
   Icon,
   List,
   ListItem
-} from "./utils/dropdown-styled";
+} from "./dropdownHelpers";
 
 class Dropdown extends Component {
   constructor(props) {

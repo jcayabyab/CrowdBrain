@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { getProject } from "../../actions/projectActions";
 import { getFeature } from "../../actions/featureActions";
 import { getComments, wipeComments } from "../../actions/commentActions";
-import LoadingWheel from "../../styled/LoadingWheel";
+import LoadingWheel from "../utils/LoadingWheel";
 import BackButtonWrapper from "../../styled/BackButtonWrapper";
 import FeatureDetail from "./FeatureDetail";
 import SubtaskList from "./SubtaskList";

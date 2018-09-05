@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { getFeatures, wipeFeatures } from "../../actions/featureActions";
 import { getProject } from "../../actions/projectActions";
-import LoadingWheel from "../../styled/LoadingWheel";
+import LoadingWheel from "../utils/LoadingWheel";
 import FeatureList from "./FeatureList";
 import ProjectDetail from "./ProjectDetail";
 import BackButtonWrapper from "../../styled/BackButtonWrapper";
