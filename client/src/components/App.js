@@ -7,7 +7,7 @@ import Landing from "./Landing";
 import NavBar from "./NavBar";
 import Dashboard from "./Dashboard/Dashboard";
 import Project from "./ProjectPage/Project";
-// import Feature from "./FeaturePage/Feature";
+import Feature from "./FeaturePage/Feature";
 
 class App extends Component {
   componentDidMount() {
@@ -21,8 +21,8 @@ class App extends Component {
           <div className="container">
             <NavBar />
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/p/:id" component={Project} />
-            {/* <Route exact path="/p/:id/:featureId" component={Feature} /> */}
+            <Route exact path="/p/:projectId" component={Project} />
+            <Route exact path="/p/:projectId/:featureId" component={Feature} />
             <Route
               exact
               path="/"

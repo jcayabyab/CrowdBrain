@@ -19,6 +19,8 @@ class ProjectList extends Component {
         </div>
       );
     }
+
+    console.log(this.props.projects)
     return _.map(this.props.projects, project => (
       <ProjectListItem key={project._id} project={project} />
     ));

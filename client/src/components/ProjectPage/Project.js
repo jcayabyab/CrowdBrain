@@ -18,12 +18,14 @@ const Header = styled.div`
 
 class Project extends Component {
   async componentDidMount() {
-    await this.props.getProject(this.props.match.params.id);
+    await this.props.getProject(this.props.match.params.projectId);
     await this.props.getFeatures(this.props.project._id);
   }
 
   render() {
     const { project, features } = this.props;
+
+    console.log(this.props.projects);
 
     if (project) {
       return (
@@ -54,7 +56,7 @@ class Project extends Component {
 }
 
 function mapStateToProps({ projects, features }, ownProps) {
-  return { project: projects[ownProps.match.params.id], features };
+  return { projects: projects, project: projects[ownProps.match.params.projectId], features };
 }
 
 export default connect(
