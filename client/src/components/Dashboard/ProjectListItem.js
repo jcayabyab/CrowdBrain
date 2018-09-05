@@ -6,7 +6,7 @@ class ProjectListItem extends Component {
     const {_id, title} = this.props.project;
 
     return (
-      <Link to={`/projects/${_id}`} className="list-group-item list-group-item-action">{title}</Link>
+      <Link to={`/p/${_id}`} className="list-group-item list-group-item-action">{title}</Link>
     );
   }
 }
