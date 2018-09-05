@@ -9,7 +9,7 @@ import {
 export const getComments = featureId => async dispatch => {
   const body = { featureId };
 
-  const res = await axios.get("/api/comments", body);
+  const res = await axios.post("/api/comments", body);
 
   dispatch({ type: GET_COMMENTS, payload: res.data });
 };
@@ -17,7 +17,7 @@ export const getComments = featureId => async dispatch => {
 export const getComment = commentId => async dispatch => {
   const body = { commentId };
 
-  const res = await axios.get("/api/comment", body);
+  const res = await axios.post("/api/comment", body);
 
   dispatch({ type: UPDATE_COMMENTS, payload: res.data });
 };

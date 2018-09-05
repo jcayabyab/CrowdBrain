@@ -4,14 +4,14 @@ const requireLogin = require("../middlewares/requireLogin");
 const Comment = mongoose.model("comments");
 
 module.exports = app => {
-  app.get("/api/comments/", async (req, res) => {
+  app.post("/api/comments/", async (req, res) => {
     const { featureId } = req.body;
 
     const comments = await Comment.find({ _feature: featureId });
     res.send(comments);
   });
 
-  app.get("/api/comment/", async (req, res) => {
+  app.post("/api/comment/", async (req, res) => {
     const { commentId } = req.body;
 
     const comment = await Comment.findById(commentId);

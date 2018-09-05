@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUser } from "../actions";
 
@@ -19,9 +19,19 @@ class App extends Component {
         <BrowserRouter>
           <div className="container">
             <NavBar />
-            <Route exact path="/" component={Landing} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/projects/:id" component={ProjectDetail} />
+            <Route
+              exact
+              path="/"
+              render={() => {
+                return this.props.user ? (
+                  <Redirect to="/dashboard" />
+                ) : (
+                  <Landing />
+                );
+              }}
+            />
           </div>
         </BrowserRouter>
       </div>
@@ -29,7 +39,11 @@ class App extends Component {
   }
 }
 
+function mapStateToProps({ user }) {
+  return { user };
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   { fetchUser }
 )(App);

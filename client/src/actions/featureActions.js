@@ -9,7 +9,7 @@ import {
 export const getFeatures = projectId => async dispatch => {
   const body = { projectId };
 
-  const res = await axios.get("/api/features", body);
+  const res = await axios.post("/api/features", body);
 
   dispatch({ type: GET_FEATURES, payload: res.data });
 };
@@ -17,7 +17,7 @@ export const getFeatures = projectId => async dispatch => {
 export const getFeature = featureId => async dispatch => {
   const body = { featureId };
 
-  const res = await axios.get("/api/feature", body);
+  const res = await axios.post("/api/feature", body);
 
   dispatch({ type: UPDATE_FEATURES, payload: res.data });
 };
