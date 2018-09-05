@@ -11,11 +11,8 @@ module.exports = app => {
 
   app.post("/api/project", requireLogin, async (req, res) => {
     const { projectId } = req.body;
-    console.log(req.body);
 
     const project = await Project.findById(projectId);
-
-    console.log(project);
 
     res.send(project);
   });

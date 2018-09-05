@@ -9,7 +9,7 @@ import {
 export default function(state = {}, action) {
   switch (action.type) {
     case GET_FEATURES:
-      return _.mapKeys(action.payload, "id");
+      return _.mapKeys(action.payload, "_id");
     case UPDATE_FEATURES: {
       let newState = {...state, [action.payload._id]: action.payload};
       return newState;
