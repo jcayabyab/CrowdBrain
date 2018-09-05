@@ -5,9 +5,9 @@ const Feature = mongoose.model("features");
 
 module.exports = app => {
   app.post("/api/feature/subtask/new", requireLogin, async (req, res) => {
-    const { featureID } = req.body;
+    const { featureId } = req.body;
 
-    const feature = await Feature.findById(featureID);
+    const feature = await Feature.findById(featureId);
     feature.subtasks.push({ title: "New Subtask" });
     feature.save();
 
@@ -16,10 +16,10 @@ module.exports = app => {
 
   app.post("/api/feature/subtask/edit", requireLogin, async (req, res) => {
     // handle formatting on front-end action creator
-    const { featureID, _id, title, dateDue } = req.body;
+    const { featureId, _id, title, dateDue } = req.body;
 
     await findOneAndUpdate(
-      { _id: featureID, "subtasks._id": _id },
+      { _id: featureId, "subtasks._id": _id },
       {
         $set: {
           "subtasks.$.title": title,
@@ -28,16 +28,16 @@ module.exports = app => {
       }
     );
 
-    const feature = findById(featureID);
+    const feature = findById(featureId);
 
     res.send(feature);
   });
 
   app.post("/api/feature/subtask/delete", requireLogin, async (req, res) => {
-    const { featureID, subtaskID } = req.body;
+    const { featureId, subtaskId } = req.body;
 
-    const feature = await Feature.findById(featureID);
-    await feature.subtasks.id(subtaskID).remove();
+    const feature = await Feature.findById(featureId);
+    await feature.subtasks.id(subtaskId).remove();
     await feature.save();
 
     res.send(feature);
@@ -45,13 +45,13 @@ module.exports = app => {
 
   app.post("/api/feature/subtask/toggle", requireLogin, async (req, res) => {
     // handle formatting on front-end action creator
-    const { featureID, subtaskID } = req.body;
+    const { featureId, subtaskId } = req.body;
 
-    const subtask = await find({ _id: featureID, "subtasks._id": subtaskID });
+    const subtask = await find({ _id: featureId, "subtasks._id": subtaskId });
     subtask.completed = !subtask.completed;
     await subtask.save();
 
-    const feature = await findById(featureID);
+    const feature = await findById(featureId);
 
     res.send(feature);
   });

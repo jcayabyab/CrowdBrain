@@ -1,8 +1,8 @@
 import axios from "axios";
 import { UPDATE_FEATURES } from "./types";
 
-export const createSubtask = featureID => async dispatch => {
-  const body = { featureID };
+export const createSubtask = featureId => async dispatch => {
+  const body = { featureId };
 
   // makes blank feature
   const res = await axios.post("/api/feature/subtask/new", body);
@@ -11,25 +11,25 @@ export const createSubtask = featureID => async dispatch => {
   dispatch({ type: UPDATE_FEATURES, payload: res.data });
 };
 
-export const editSubtask = (values, featureID, subtaskID) => async dispatch => {
+export const editSubtask = (values, featureId, subtaskId) => async dispatch => {
   /* format reduxform here */
-  const body = { featureID, subtaskID, values };
+  const body = { featureId, subtaskId, values };
 
   const res = await axios.post("/api/feature/subtask/edit", body);
 
   dispatch({ type: UPDATE_FEATURES, payload: res.data });
 };
 
-export const deleteSubtask = (featureID, subtaskID) => async dispatch => {
-  const body = { featureID, subtaskID };
+export const deleteSubtask = (featureId, subtaskId) => async dispatch => {
+  const body = { featureId, subtaskId };
 
   const res = await axios.post("/api/feature/subtask/delete", body);
 
   dispatch({ type: UPDATE_FEATURES, payload: res.data });
 };
 
-export const toggleSubtask = (featureID, subtaskID) => async dispatch => {
-  const body = { featureID, subtaskID };
+export const toggleSubtask = (featureId, subtaskId) => async dispatch => {
+  const body = { featureId, subtaskId };
 
   const res = await axios.get("/api/feature/subtask/toggle", body);
 

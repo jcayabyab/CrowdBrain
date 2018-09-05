@@ -10,7 +10,7 @@ import {
 export default function(state = {}, action) {
   switch (action.type) {
     case GET_COMMENTS:
-      return _.mapKeys(action.payload, "id");
+      return _.mapKeys(action.payload, "_id");
     case UPDATE_COMMENTS: {
       let newState = { ...state, [action.payload._id]: action.payload };
       return newState;

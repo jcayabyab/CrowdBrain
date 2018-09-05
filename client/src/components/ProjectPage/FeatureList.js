@@ -6,12 +6,28 @@ import LoadingWheel from "../../styled/LoadingWheel";
 class FeatureList extends Component {
   renderList() {
     return _.map(this.props.features, feature => (
-      <FeatureListItem key={feature._id} feature={feature} projectId={this.props.projectId}/>
+      <FeatureListItem
+        key={feature._id}
+        feature={feature}
+        projectId={this.props.projectId}
+      />
     ));
   }
 
   render() {
-    return <div>{(!_.isEmpty(this.props.features) && this.renderList()) || <LoadingWheel />}</div>;
+    return (
+      <div>
+        <div>Features:</div>
+        <hr style={{margin: "5px 0px 12px"}}/>
+        <div>
+          {!_.isEmpty(this.props.features) ? (
+            this.renderList()
+          ) : (
+            <LoadingWheel />
+          )}
+        </div>
+      </div>
+    );
   }
 }
 

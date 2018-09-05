@@ -25,7 +25,13 @@ class ProjectList extends Component {
   }
 
   render() {
-    return <div>{this.renderProjects()}</div>;
+    return (
+      <div>
+        <div style={{marginBottom: "-10px", fontSize: "16pt"}}>Projects</div>
+        <hr />
+        <div>{this.renderProjects()}</div>
+      </div>
+    );
   }
 }
 

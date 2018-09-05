@@ -17,6 +17,7 @@ const LoadingWheel = styled.div`
   width: ${props => props.size || 30}px;
   height: ${props => props.size || 30}px;
   animation: ${spin} 1s linear infinite;
+  margin: 0 auto;
 `;
 
 export default LoadingWheel;

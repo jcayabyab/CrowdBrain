@@ -19,7 +19,7 @@ module.exports = app => {
   });
 
   app.post("/api/comment/new", async (req, res) => {
-    const { commentId, body, username } = req.body;
+    const { featureId, username, body } = req.body;
 
     const comment = await new Comment({
       body,

@@ -22,23 +22,27 @@ class Project extends Component {
     await this.props.getFeatures(this.props.project._id);
   }
 
+  renderHeader() {
+    return (
+      <div style={{ position: "relative", margin: "5px 0 -10px" }}>
+        <BackButtonWrapper>
+          <Link to="/dashboard">
+            <i className="far fa-caret-square-left" />
+          </Link>
+        </BackButtonWrapper>
+        <Header>{this.props.project.title}</Header>
+      </div>
+    );
+  }
+
   render() {
     const { project, features } = this.props;
-
-    console.log(this.props.projects);
 
     if (project) {
       return (
         <div>
-          <div style={{ position: "relative", margin: "5px 0 -10px" }}>
-            <BackButtonWrapper>
-              <Link to="/dashboard">
-                <i className="far fa-caret-square-left" />
-              </Link>
-            </BackButtonWrapper>
-            <Header>{project.title}</Header>
-          </div>
-          <hr></hr>
+          {this.renderHeader()}
+          <hr />
           <div className="row">
             <div className="col-md-5 col-sm-12">
               <FeatureList features={features} projectId={project._id} />
@@ -56,7 +60,11 @@ class Project extends Component {
 }
 
 function mapStateToProps({ projects, features }, ownProps) {
-  return { projects: projects, project: projects[ownProps.match.params.projectId], features };
+  return {
+    projects: projects,
+    project: projects[ownProps.match.params.projectId],
+    features
+  };
 }
 
 export default connect(
