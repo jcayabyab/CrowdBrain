@@ -6,7 +6,7 @@ import LoadingWheel from "../../styled/LoadingWheel";
 class FeatureList extends Component {
   renderList() {
     return _.map(this.props.features, feature => (
-      <FeatureListItem key={feature._id} feature={feature} project={this.props.project}/>
+      <FeatureListItem key={feature._id} feature={feature} projectId={this.props.projectId}/>
     ));
   }
 

@@ -39,7 +39,7 @@ class Project extends Component {
           <hr></hr>
           <div className="row">
             <div className="col-md-5 col-sm-12">
-              <FeatureList features={features} project={project} />
+              <FeatureList features={features} projectId={project._id} />
             </div>
             <div className="col-md-7 col-sm-12">
               <ProjectDetail project={project} />
