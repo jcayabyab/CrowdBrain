@@ -7,8 +7,6 @@ class CommentList extends Component {
   renderList() {
     const { comments } = this.props;
 
-    console.log(comments)
-
     return _.map(comments, comment => (
       <CommentListItem key={comment._id} comment={comment} />
     ));

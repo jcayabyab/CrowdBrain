@@ -64,7 +64,6 @@ class Feature extends Component {
 
   render() {
     const { project, feature, comments } = this.props;
-    console.log(project, feature, comments);
 
     return project && feature ? (
       <div>
@@ -73,13 +72,14 @@ class Feature extends Component {
         <div className="row">
           <div className="col-md-7 col-sm-12">
             <FeatureDetail feature={feature} />
+            <hr />
+            <div>
+              <CommentList comments={comments} />
+            </div>
           </div>
           <div className="col-md-5 col-sm-12">
             <SubtaskList feature={feature} />
           </div>
-        </div>
-        <div>
-          <CommentList comments={comments}></CommentList>
         </div>
       </div>
     ) : (
