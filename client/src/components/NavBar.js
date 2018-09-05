@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 const Nav = styled.nav`
-  border-bottom: 3px solid #99ccff;
+  border-bottom: 3px solid #9cf;
   height: 60px;
 
   .navbar-brand:hover {
