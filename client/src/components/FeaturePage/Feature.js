@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import { getProject } from "../../actions/projectActions";
 import { getFeature } from "../../actions/featureActions";
-import { getComments } from "../../actions/commentActions";
+import { getComments, wipeComments } from "../../actions/commentActions";
 import LoadingWheel from "../../styled/LoadingWheel";
 import BackButtonWrapper from "../../styled/BackButtonWrapper";
 import FeatureDetail from "./FeatureDetail";
@@ -33,6 +33,10 @@ class Feature extends Component {
     await this.props.getProject(this.props.match.params.projectId);
     await this.props.getFeature(this.props.match.params.featureId);
     await this.props.getComments(this.props.feature._id);
+  }
+
+  componentWillUnmount() {
+    this.props.wipeComments();
   }
 
   renderHeader() {
@@ -94,5 +98,5 @@ function mapStateToProps({ projects, features, comments }, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { getProject, getFeature, getComments }
+  { getProject, getFeature, getComments, wipeComments }
 )(Feature);

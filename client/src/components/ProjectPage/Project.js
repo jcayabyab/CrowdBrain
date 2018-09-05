@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { getFeatures } from "../../actions/featureActions";
+import { getFeatures, wipeFeatures } from "../../actions/featureActions";
 import { getProject } from "../../actions/projectActions";
 import LoadingWheel from "../../styled/LoadingWheel";
 import FeatureList from "./FeatureList";
@@ -20,6 +20,10 @@ class Project extends Component {
   async componentDidMount() {
     await this.props.getProject(this.props.match.params.projectId);
     await this.props.getFeatures(this.props.project._id);
+  }
+
+  componentWillUnmount() {
+    this.props.wipeFeatures();
   }
 
   renderHeader() {
@@ -69,5 +73,5 @@ function mapStateToProps({ projects, features }, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { getFeatures, getProject }
+  { getFeatures, getProject, wipeFeatures }
 )(Project);
