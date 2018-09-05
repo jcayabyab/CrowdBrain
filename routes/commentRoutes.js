@@ -7,8 +7,12 @@ module.exports = app => {
   app.post("/api/comments/", async (req, res) => {
     const { featureId } = req.body;
 
-    const comments = await Comment.find({ _feature: featureId });
-    res.send(comments);
+    try {
+      const comments = await Comment.find({ _feature: featureId });
+      res.send(comments);
+    } catch (err) {
+      res.send(err);
+    }
   });
 
   app.post("/api/comment/", async (req, res) => {
@@ -55,10 +59,10 @@ module.exports = app => {
     const { approved } = req.body;
     const commentId = req.body._id;
 
-    const comment = await Comment.findById(commentId)
+    const comment = await Comment.findById(commentId);
 
     comment.approved = !comment.approved;
-    if(comment.approved) {
+    if (comment.approved) {
       comment.dateApproved = new Date().getTime();
     }
     await comment.save();

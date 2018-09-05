@@ -14,8 +14,12 @@ module.exports = app => {
   app.post("/api/feature/", requireLogin, async (req, res) => {
     const { featureId } = req.body;
 
-    const feature = await Feature.findById(featureId);
-    res.send(feature);
+    try {
+      const feature = await Feature.findById(featureId);
+      res.send(feature);
+    } catch (err) {
+      res.send(err);
+    }
   });
 
   app.post("/api/feature/new", requireLogin, async (req, res) => {
