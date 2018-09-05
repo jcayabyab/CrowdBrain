@@ -1,33 +1,23 @@
+import _ from "lodash";
 import {
   GET_FEATURES,
-  CREATE_FEATURE,
-  EDIT_FEATURE,
+  UPDATE_FEATURES,
   DELETE_FEATURE,
   WIPE_FEATURES
 } from "../actions/types";
 
-export default function(state = [], action) {
+export default function(state = {}, action) {
   switch (action.type) {
     case GET_FEATURES:
-      return action.payload;
-    case CREATE_FEATURE: {
-      let newState = [...state];
-      newState.push(action.payload);
-      return newState;
-    }
-    case EDIT_FEATURE: {
-      let newState = [...state];
-      newState.forEach(feature => {
-        if (feature._id === feature.payload._id) {
-          feature = action.payload;
-        }
-      });
+      return _.mapKeys(action.payload, "id");
+    case UPDATE_FEATURES: {
+      let newState = {...state, [action.payload._id]: action.payload};
       return newState;
     }
     case DELETE_FEATURE:
-      return state.filter(feature => feature._id !== action.payload._id);
+      return _.filter(state, { _id: !action.payload._id });
     case WIPE_FEATURES:
-      return [];
+      return {};
     default:
       return state;
   }

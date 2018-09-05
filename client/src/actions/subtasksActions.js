@@ -1,5 +1,5 @@
 import axios from "axios";
-import { EDIT_FEATURE } from "./types";
+import { UPDATE_FEATURES } from "./types";
 
 export const createSubtask = featureID => async dispatch => {
   const body = { featureID };
@@ -7,7 +7,8 @@ export const createSubtask = featureID => async dispatch => {
   // makes blank feature
   const res = await axios.post("/api/feature/subtask/new", body);
 
-  dispatch({ type: EDIT_FEATURE, payload: res.data });
+  //res.data is parent feature
+  dispatch({ type: UPDATE_FEATURES, payload: res.data });
 };
 
 export const editSubtask = (values, featureID, subtaskID) => async dispatch => {
@@ -16,7 +17,7 @@ export const editSubtask = (values, featureID, subtaskID) => async dispatch => {
 
   const res = await axios.post("/api/feature/subtask/edit", body);
 
-  dispatch({ type: EDIT_FEATURE, payload: res.data });
+  dispatch({ type: UPDATE_FEATURES, payload: res.data });
 };
 
 export const deleteSubtask = (featureID, subtaskID) => async dispatch => {
@@ -24,7 +25,7 @@ export const deleteSubtask = (featureID, subtaskID) => async dispatch => {
 
   const res = await axios.post("/api/feature/subtask/delete", body);
 
-  dispatch({ type: EDIT_FEATURE, payload: res.data });
+  dispatch({ type: UPDATE_FEATURES, payload: res.data });
 };
 
 export const toggleSubtask = (featureID, subtaskID) => async dispatch => {
@@ -32,5 +33,5 @@ export const toggleSubtask = (featureID, subtaskID) => async dispatch => {
 
   const res = await axios.get("/api/feature/subtask/toggle", body);
 
-  dispatch({ type: EDIT_FEATURE, payload: res.data });
+  dispatch({ type: UPDATE_FEATURES, payload: res.data });
 };

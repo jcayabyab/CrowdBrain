@@ -4,44 +4,51 @@ const requireLogin = require("../middlewares/requireLogin");
 const Feature = mongoose.model("features");
 
 module.exports = app => {
-  app.get("/api/feature/", requireLogin, async (req, res) => {
-    const { projectID } = req.body;
+  app.get("/api/features/", requireLogin, async (req, res) => {
+    const { projectId } = req.body;
 
-    const features = await Feature.find({ _project: projectID });
+    const features = await Feature.find({ _project: projectId });
     res.send(features);
   });
 
+  app.get("/api/feature/", requireLogin, async (req, res) => {
+    const { featureId } = req.body;
+
+    const feature = await Feature.findById(featureId);
+    res.send(feature);
+  });
+
   app.post("/api/feature/new", requireLogin, async (req, res) => {
-    const { projectID, title, description, dateDue } = req.body;
+    const { projectId, title, description, dateDue } = req.body;
 
     const feature = await new Feature({
       title,
       description,
       dateCreated: new Date().getTime(),
       dateDue,
-      _project: projectID
+      _project: projectId
     }).save();
 
     res.send(feature);
   });
 
   app.post("/api/feature/edit", requireLogin, async (req, res) => {
-    const { featureID, title, description, dateDue } = req.body;
+    const { featureId, title, description, dateDue } = req.body;
 
-    await Feature.findByIdAndUpdate(featureID, {
+    await Feature.findByIdAndUpdate(featureId, {
       $set: { title, description, dateDue }
     });
 
     //returns edited feature
-    const feature = await Feature.findById(featureID);
+    const feature = await Feature.findById(featureId);
 
     res.send(feature);
   });
 
   app.post("/api/feature/delete", requireLogin, async (req, res) => {
-    const { featureID } = req.body;
+    const { featureId } = req.body;
 
-    const feature = await Project.findByIdAndDelete(featureID);
+    const feature = await Project.findByIdAndDelete(featureId);
 
     res.send(feature);
   });

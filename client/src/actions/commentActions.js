@@ -1,40 +1,47 @@
 import axios from "axios";
 import {
   GET_COMMENTS,
-  CREATE_COMMENT,
-  EDIT_COMMENT,
+  UPDATE_COMMENTS,
   DELETE_COMMENT,
   WIPE_COMMENTS
 } from "./types";
 
-export const getComments = featureID => async dispatch => {
-  const body = { featureID };
+export const getComments = featureId => async dispatch => {
+  const body = { featureId };
 
-  const res = await axios.get("/api/comment", body);
+  const res = await axios.get("/api/comments", body);
 
   dispatch({ type: GET_COMMENTS, payload: res.data });
 };
 
-export const createComment = (featureID, values) => async dispatch => {
+export const getComment = commentId => async dispatch => {
+  const body = { commentId };
+
+  const res = await axios.get("/api/comment", body);
+
+  dispatch({ type: UPDATE_COMMENTS, payload: res.data });
+};
+
+export const createComment = (featureId, values) => async dispatch => {
   /* format reduxform here */
-  const body = { featureID, values };
+  const body = { featureId, values };
 
   const res = await axios.post("/api/feature/new", body);
 
-  dispatch({ type: CREATE_COMMENT, payload: res.data });
+  dispatch({ type: UPDATE_COMMENTS, payload: res.data });
 };
 
-export const editComment = (commentID, values) => async dispatch => {
+export const editComment = (commentId, values) => async dispatch => {
   /* format reduxform here */
-  const body = { commentID, values };
+  const body = { commentId, values };
 
   const res = await axios.post("/api/feature/edit", body);
 
-  dispatch({ type: EDIT_COMMENT, payload: res.data });
+  dispatch({ type: UPDATE_COMMENTS, payload: res.data });
 };
 
-export const deleteComment = commentID => async dispatch => {
-  const body = { commentID };
+export const deleteComment = commentId => async dispatch => {
+  const body = { commentId };
   const res = await axios.post("/api/feature/delete", body);
 
   dispatch({ type: DELETE_COMMENT, payload: res.data });

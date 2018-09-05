@@ -4,9 +4,17 @@ const requireLogin = require("../middlewares/requireLogin");
 const Project = mongoose.model("projects");
 
 module.exports = app => {
-  app.get("/api/project/", requireLogin, async (req, res) => {
+  app.get("/api/projects/", requireLogin, async (req, res) => {
     const projects = await Project.find({ _user: req.user.id });
     res.send(projects);
+  });
+
+  app.get("/api/project", requireLogin, async (req, res) => {
+    const { projectId } = req.body;
+
+    const project = await Project.findById(projectId);
+
+    res.send(project);
   });
 
   app.post("/api/project/new", requireLogin, async (req, res) => {
