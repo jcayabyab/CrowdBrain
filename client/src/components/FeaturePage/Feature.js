@@ -11,6 +11,7 @@ import BackButtonWrapper from "../utils/BackButtonWrapper";
 import FeatureDetail from "./FeatureDetail";
 import SubtaskList from "./SubtaskList";
 import CommentList from "./CommentList";
+import CommentForm from "./CommentForm";
 
 const Header = styled.div`
   font-size: 16pt;
@@ -75,6 +76,7 @@ class Feature extends Component {
             <hr />
             <div>
               <CommentList comments={comments} />
+              <CommentForm/>
             </div>
           </div>
           <div className="col-md-5 col-sm-12">

@@ -7,7 +7,7 @@ import {
   WIPE_COMMENTS
 } from "../actions/types";
 
-export default function(state = {}, action) {
+export default function(state = null, action) {
   switch (action.type) {
     case GET_COMMENTS:
       return _.mapKeys(action.payload, "_id");
@@ -18,7 +18,7 @@ export default function(state = {}, action) {
     case DELETE_COMMENT:
       return _.filter(state, { _id: !action.payload._id });
     case WIPE_COMMENTS:
-      return {};
+      return null;
     default:
       return state;
   }
