@@ -8,7 +8,7 @@ import { getProject } from "../../actions/projectActions";
 import LoadingWheel from "../utils/LoadingWheel";
 import FeatureList from "./FeatureList";
 import ProjectDetail from "./ProjectDetail";
-import BackButtonWrapper from "../../styled/BackButtonWrapper";
+import BackButtonWrapper from "../utils/BackButtonWrapper";
 
 const Header = styled.div`
   font-size: 16pt;

@@ -1,21 +1,25 @@
 import _ from "lodash";
 import React, { Component } from "react";
 
+import LoadingWheel from "../utils/LoadingWheel";
 import CommentListItem from "./CommentListItem";
 
 class CommentList extends Component {
   renderList() {
     const { comments } = this.props;
 
-    return _.map(comments, comment => (
-      <CommentListItem key={comment._id} comment={comment} />
-    ));
+    if (!_.isEmpty(comments)) {
+      return _.map(comments, comment => (
+        <CommentListItem key={comment._id} comment={comment} />
+      ));
+    }
+
+    return <LoadingWheel />;
   }
 
   render() {
     return (
       <div>
-        <div>Comments: </div>
         <div>{this.renderList()}</div>
       </div>
     );

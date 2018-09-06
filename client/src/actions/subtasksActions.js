@@ -11,9 +11,8 @@ export const createSubtask = featureId => async dispatch => {
   dispatch({ type: UPDATE_FEATURES, payload: res.data });
 };
 
-export const editSubtask = (values, featureId, subtaskId) => async dispatch => {
-  /* format reduxform here */
-  const body = { featureId, subtaskId, values };
+export const editSubtask = (featureId, subtaskId, values) => async dispatch => {
+  const body = { ...values, featureId, subtaskId };
 
   const res = await axios.post("/api/feature/subtask/edit", body);
 
@@ -31,7 +30,7 @@ export const deleteSubtask = (featureId, subtaskId) => async dispatch => {
 export const toggleSubtask = (featureId, subtaskId) => async dispatch => {
   const body = { featureId, subtaskId };
 
-  const res = await axios.get("/api/feature/subtask/toggle", body);
+  const res = await axios.post("/api/feature/subtask/toggle", body);
 
   dispatch({ type: UPDATE_FEATURES, payload: res.data });
 };

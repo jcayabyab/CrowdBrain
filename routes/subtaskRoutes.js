@@ -16,19 +16,19 @@ module.exports = app => {
 
   app.post("/api/feature/subtask/edit", requireLogin, async (req, res) => {
     // handle formatting on front-end action creator
-    const { featureId, _id, title, dateDue } = req.body;
+    const { featureId, subtaskId, title /*, dateDue*/ } = req.body;
 
-    await findOneAndUpdate(
-      { _id: featureId, "subtasks._id": _id },
+    await Feature.findOneAndUpdate(
+      { _id: featureId, "subtasks._id": subtaskId },
       {
         $set: {
           "subtasks.$.title": title,
-          "subtasks.$.dateDue": dateDue
+          // "subtasks.$.dateDue": dateDue
         }
       }
     );
 
-    const feature = findById(featureId);
+    const feature = await Feature.findById(featureId);
 
     res.send(feature);
   });
@@ -47,11 +47,11 @@ module.exports = app => {
     // handle formatting on front-end action creator
     const { featureId, subtaskId } = req.body;
 
-    const subtask = await find({ _id: featureId, "subtasks._id": subtaskId });
-    subtask.completed = !subtask.completed;
-    await subtask.save();
+    const feature = await Feature.findOne({ _id: featureId });
+    const subtask = feature.subtasks.id(subtaskId);
 
-    const feature = await findById(featureId);
+    subtask.completed = !subtask.completed;
+    await feature.save();
 
     res.send(feature);
   });

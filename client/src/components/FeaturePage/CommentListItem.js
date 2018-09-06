@@ -8,6 +8,12 @@ const Comment = styled.div`
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
+  font-size: 10pt;
+  margin-bottom: 5px;
+`;
+
+const HeaderLeft = styled.div`
+  display: flex;
 `;
 
 const Username = styled.div`
@@ -16,18 +22,22 @@ const Username = styled.div`
 
 const Body = styled.div`
   font-size: 10pt;
+  margin-bottom: 3px;
 `;
 
 class CommentListItem extends Component {
   render() {
     const { comment } = this.props;
-    console.log(comment);
 
     return (
       <Comment className="list-group-item">
         <Header>
-          <Username>{comment.username}</Username>
-          <small>3 days ago</small>
+          <HeaderLeft>
+            <Username>{comment.username}</Username>
+            <div style={{ margin: "0px 5px" }}>|</div>
+            <div>3 days ago</div>
+          </HeaderLeft>
+          <div>{comment.approved && `Approved`}</div>
         </Header>
         <Body>{comment.body}</Body>
       </Comment>
