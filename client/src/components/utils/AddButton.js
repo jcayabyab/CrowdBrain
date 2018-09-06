@@ -11,6 +11,7 @@ const Button = styled.i`
   color: #7ad;
   transition: color 0.15s linear;
   margin: 4px;
+  cursor: pointer;
 
   &:hover {
     color: #47a;

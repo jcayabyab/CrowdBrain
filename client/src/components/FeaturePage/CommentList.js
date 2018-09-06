@@ -8,8 +8,6 @@ class CommentList extends Component {
   renderList() {
     const { comments } = this.props;
 
-    console.log(comments);
-
     if (comments === null) {
       return <LoadingWheel />;
     }

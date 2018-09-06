@@ -2,16 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { toggleSubtask } from "../../actions/subtasksActions";
 import styled from "styled-components";
-import { reduxForm, Field } from "redux-form";
+
+import EditButton from "../utils/EditButton";
+import SingleForm from "../utils/SingleForm";
 
 const SubtaskWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   min-height: 55px;
-
-  & * {
-    margin-left: 6px;
-  }
 `;
 
 const Right = styled.div`
@@ -37,15 +35,7 @@ class SubtaskListItem extends Component {
       >
         <div>{subtask.title}</div>
         <Right>
-          <div>
-            {
-              <i
-                style={{ fontSize: "18pt", cursor: "pointer" }}
-                className={`far fa-edit`}
-                onClick={this.handleEditClick.bind(this)}
-              />
-            }
-          </div>
+          <div>{<EditButton visible={this.state.hovered} onClick={this.handleEditClick.bind(this)} />}</div>
           <i
             style={{ fontSize: "18pt", cursor: "pointer" }}
             className={`far ${
@@ -61,41 +51,12 @@ class SubtaskListItem extends Component {
   renderForm() {
     return (
       <div className="list-group-item">
-        <form
-          onSubmit={this.props.handleSubmit(values => this.onSubmit(values))}
-          className="row"
-        >
-          <button
-            className="btn btn-warning col-auto"
-            style={{ padding: "0px 8px", margin: "0px 4px", color: "white" }}
-            onClick={this.onCancel.bind(this)}
-            type="button"
-          >
-            <i className="fas fa-ban" />
-          </button>
-          <Field
-            name="title"
-            component="input"
-            type="text"
-            className="form-control col"
-            style={{ margin: "0px 6px" }}
-          />
-          <button
-            className="btn btn-success col-auto"
-            type="submit"
-            style={{ padding: "0px 8px", margin: "0px 4px" }}
-          >
-            <i className="far fa-save" />
-          </button>
-          <button
-            className="btn btn-danger col-auto"
-            style={{ padding: "0px 8px", margin: "0px 4px" }}
-            onClick={this.props.onDelete}
-            type="button"
-          >
-            <i className="fas fa-trash" />
-          </button>
-        </form>
+        <SingleForm
+          onSubmit={values => this.onSubmit(values)}
+          onCancel={this.onCancel.bind(this)}
+          onDelete={this.props.onDelete}
+          object={this.props.subtask}
+        />
       </div>
     );
   }
@@ -122,14 +83,7 @@ class SubtaskListItem extends Component {
   }
 }
 
-function mapStateToProps(state, ownProps) {
-  return {
-    initialValues: { title: ownProps.subtask.title },
-    form: ownProps.subtask._id
-  };
-}
-
 export default connect(
-  mapStateToProps,
+  null,
   { toggleSubtask }
-)(reduxForm()(SubtaskListItem));
+)(SubtaskListItem);

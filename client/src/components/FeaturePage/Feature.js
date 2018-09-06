@@ -12,10 +12,14 @@ import FeatureDetail from "./FeatureDetail";
 import SubtaskList from "./SubtaskList";
 import CommentList from "./CommentList";
 import CommentForm from "./CommentForm";
+import Editable from "../utils/Editable";
+import EditButton from "../utils/EditButton";
 
 const Header = styled.div`
   font-size: 16pt;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ProjectText = styled(Link)`
@@ -55,8 +59,11 @@ class Feature extends Component {
             <ProjectText to={`/p/${this.props.match.params.projectId}`}>
               {project.title}
             </ProjectText>
-            <i className="fas fa-caret-right" style={{ margin: "0px 10px" }} />
-            <span style={{ fontWeight: "bold" }}>{feature.title}</span>
+            <i className="fas fa-caret-right" style={{ margin: "0px 15px" }} />
+            <Editable style={{ fontWeight: "bold" }} object={feature}>
+              {feature.title}
+              <EditButton />
+            </Editable>
           </Header>
         </div>
       </div>
@@ -76,7 +83,7 @@ class Feature extends Component {
             <hr />
             <div>
               <CommentList comments={comments} />
-              <CommentForm/>
+              <CommentForm />
             </div>
           </div>
           <div className="col-md-5 col-sm-12">
