@@ -69,6 +69,7 @@ class SubtaskListItem extends Component {
             className="btn btn-warning col-auto"
             style={{ padding: "0px 8px", margin: "0px 4px", color: "white" }}
             onClick={this.onCancel.bind(this)}
+            type="button"
           >
             <i className="fas fa-ban" />
           </button>
@@ -90,6 +91,7 @@ class SubtaskListItem extends Component {
             className="btn btn-danger col-auto"
             style={{ padding: "0px 8px", margin: "0px 4px" }}
             onClick={this.props.onDelete}
+            type="button"
           >
             <i className="fas fa-trash" />
           </button>
