@@ -3,6 +3,7 @@ import styled from "styled-components";
 import dateShow from "./dateShow";
 
 const Dates = styled.div`
+  margin-top: 40px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -11,7 +12,6 @@ const Dates = styled.div`
 const Detail = ({ object }) => (
   <div>
     <div>{object.description}</div>
-    <hr />
     <Dates>
       <div>
         <span style={{ fontWeight: "bold" }}>Date created: </span>
