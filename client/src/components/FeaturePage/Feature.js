@@ -4,7 +4,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { getProject } from "../../actions/projectActions";
-import { getFeature, editFeature } from "../../actions/featureActions";
+import {
+  getFeature,
+  editFeature,
+  wipeFeatures
+} from "../../actions/featureActions";
 import { getComments, wipeComments } from "../../actions/commentActions";
 import LoadingWheel from "../utils/LoadingWheel";
 import BackButtonWrapper from "../utils/BackButtonWrapper";
@@ -41,6 +45,7 @@ class Feature extends Component {
   }
 
   componentWillUnmount() {
+    this.props.wipeFeatures();
     this.props.wipeComments();
   }
 
@@ -75,7 +80,7 @@ class Feature extends Component {
   }
 
   render() {
-    const { project, feature, comments } = this.props;
+    const { project, feature, comments, editFeature } = this.props;
 
     return project && feature ? (
       <div>
@@ -83,7 +88,10 @@ class Feature extends Component {
         <hr />
         <div className="row">
           <div className="col-md-7 col-sm-12">
-            <Detail object={feature} />
+            <Detail
+              object={feature}
+              onSubmit={values => editFeature(feature._id, values)}
+            />
             <hr />
             <div>
               <CommentList comments={comments} />
@@ -111,5 +119,12 @@ function mapStateToProps({ projects, features, comments }, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { getProject, getFeature, editFeature, getComments, wipeComments }
+  {
+    getProject,
+    getFeature,
+    editFeature,
+    getComments,
+    wipeFeatures,
+    wipeComments
+  }
 )(Feature);

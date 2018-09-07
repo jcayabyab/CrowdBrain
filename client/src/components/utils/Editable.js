@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SingleForm from "./SingleForm";
 import EditButton from "./EditButton";
 
-// expects onSubmit, onCancel, onDelete, and an object to display form for
+// expects onSubmit, section, type of input, onCancel, onDelete, and an object to display form for
 
 class Editable extends Component {
   state = { editing: false, hovered: false };
@@ -48,12 +48,16 @@ class Editable extends Component {
   }
 
   renderForm() {
+    const { onDelete, object, section, inputType } = this.props;
+
     return (
       <SingleForm
         onSubmit={values => this.onSubmit(values)}
         onCancel={this.onCancel.bind(this)}
-        onDelete={this.props.onDelete}
-        object={this.props.object}
+        onDelete={onDelete}
+        object={object}
+        section={section}
+        inputType={inputType}
       />
     );
   }

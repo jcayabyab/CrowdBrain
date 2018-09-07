@@ -55,7 +55,7 @@ class Project extends Component {
   }
 
   render() {
-    const { project, features } = this.props;
+    const { project, features, editProject } = this.props;
 
     if (project) {
       return (
@@ -64,7 +64,10 @@ class Project extends Component {
           <hr />
           <div className="row">
             <div className="col-md-7 col-sm-12">
-              <Detail object={project} />
+              <Detail
+                object={project}
+                onSubmit={values => editProject(project._id, values)}
+              />
             </div>
             <div className="col-md-5 col-sm-12">
               <FeatureList features={features} projectId={project._id} />

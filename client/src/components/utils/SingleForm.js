@@ -20,8 +20,8 @@ const SingleForm = props => {
         <i className="fas fa-ban" />
       </button>
       <Field
-        name="title"
-        component="input"
+        name={props.section || "title"}
+        component={props.inputType || "input"}
         type="text"
         className="form-control col"
         style={{ margin: "0px 6px" }}
