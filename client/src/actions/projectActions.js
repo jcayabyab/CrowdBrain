@@ -23,9 +23,21 @@ export const createProject = values => async dispatch => {
   dispatch({ type: UPDATE_PROJECTS, payload: res.data });
 };
 
-export const editProject = values => async dispatch => {
-  /* format reduxform here */
-  const body = {};
+export const editProject = (projectId, values) => async dispatch => {
+  const {title, description, dateDue} = values;
+  const body = { projectId };
+
+  if (title) {
+    body.title = title;
+  }
+  if (description) {
+    body.description = description;
+  }
+  if (dateDue) {
+    body.dateDue = dateDue;
+  }
+
+  console.log(body);
 
   const res = await axios.post("/api/project/edit", body);
 

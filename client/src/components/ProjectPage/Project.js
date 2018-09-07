@@ -4,16 +4,19 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { getFeatures, wipeFeatures } from "../../actions/featureActions";
-import { getProject } from "../../actions/projectActions";
+import { getProject, editProject } from "../../actions/projectActions";
 import LoadingWheel from "../utils/LoadingWheel";
 import FeatureList from "./FeatureList";
 import ProjectDetail from "./ProjectDetail";
 import BackButtonWrapper from "../utils/BackButtonWrapper";
+import Editable from "../utils/Editable";
+import EditButton from "../utils/EditButton";
 
 const Header = styled.div`
   font-size: 16pt;
-  font-weight: bold;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 class Project extends Component {
@@ -27,14 +30,26 @@ class Project extends Component {
   }
 
   renderHeader() {
+    const { project } = this.props;
+
     return (
-      <div style={{ position: "relative", margin: "5px 0 -10px" }}>
-        <BackButtonWrapper>
-          <Link to="/dashboard">
-            <i className="far fa-caret-square-left" />
-          </Link>
-        </BackButtonWrapper>
-        <Header>{this.props.project.title}</Header>
+      <div>
+        <div style={{ position: "relative", margin: "5px 0 -10px" }}>
+          <BackButtonWrapper>
+            <Link to="/dashboard">
+              <i className="far fa-caret-square-left" />
+            </Link>
+          </BackButtonWrapper>
+          <Header>
+            <Editable
+              object={project}
+              onSubmit={values => this.props.editProject(project._id, values)}
+            >
+              {project.title}
+              <EditButton />
+            </Editable>
+          </Header>
+        </div>
       </div>
     );
   }
@@ -73,5 +88,5 @@ function mapStateToProps({ projects, features }, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { getFeatures, getProject, wipeFeatures }
+  { getFeatures, getProject, editProject, wipeFeatures }
 )(Project);

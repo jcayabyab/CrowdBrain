@@ -32,7 +32,7 @@ export const createFeature = values => async dispatch => {
 };
 
 export const editFeature = (featureId, values) => async dispatch => {
-  console.log(values);
+  console.log("feature", values);
   const { title, description, dateDue } = values;
 
   const body = { featureId };

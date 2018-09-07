@@ -32,22 +32,22 @@ module.exports = app => {
   });
 
   app.post("/api/project/edit", requireLogin, async (req, res) => {
-    const { projectID, title, description, dateDue } = req.body;
+    const { projectId, title, description, dateDue } = req.body;
 
-    await Project.findByIdAndUpdate(projectID, {
+    await Project.findByIdAndUpdate(projectId, {
       $set: { title, description, dateDue }
     });
 
     //returns edited project
-    const project = await Project.findById(projectID);
+    const project = await Project.findById(projectId);
 
     res.send(project);
   });
 
   app.post("/api/project/delete", requireLogin, async (req, res) => {
-    const { projectID } = req.body;
+    const { projectId } = req.body;
 
-    const project = await Project.findByIdAndDelete(projectID);
+    const project = await Project.findByIdAndDelete(projectId);
 
     res.send(project);
   });
