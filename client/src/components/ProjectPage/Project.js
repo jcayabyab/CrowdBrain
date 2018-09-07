@@ -7,7 +7,7 @@ import { getFeatures, wipeFeatures } from "../../actions/featureActions";
 import { getProject, editProject } from "../../actions/projectActions";
 import LoadingWheel from "../utils/LoadingWheel";
 import FeatureList from "./FeatureList";
-import ProjectDetail from "./ProjectDetail";
+import Detail from "../utils/Detail";
 import BackButtonWrapper from "../utils/BackButtonWrapper";
 import Editable from "../utils/Editable";
 import EditButton from "../utils/EditButton";
@@ -63,11 +63,11 @@ class Project extends Component {
           {this.renderHeader()}
           <hr />
           <div className="row">
+            <div className="col-md-7 col-sm-12">
+              <Detail object={project} />
+            </div>
             <div className="col-md-5 col-sm-12">
               <FeatureList features={features} projectId={project._id} />
-            </div>
-            <div className="col-md-7 col-sm-12">
-              <ProjectDetail project={project} />
             </div>
           </div>
         </div>

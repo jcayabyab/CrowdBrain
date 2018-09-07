@@ -8,7 +8,7 @@ import { getFeature, editFeature } from "../../actions/featureActions";
 import { getComments, wipeComments } from "../../actions/commentActions";
 import LoadingWheel from "../utils/LoadingWheel";
 import BackButtonWrapper from "../utils/BackButtonWrapper";
-import FeatureDetail from "./FeatureDetail";
+import Detail from "../utils/Detail";
 import SubtaskList from "./SubtaskList";
 import CommentList from "./CommentList";
 import CommentForm from "./CommentForm";
@@ -83,7 +83,7 @@ class Feature extends Component {
         <hr />
         <div className="row">
           <div className="col-md-7 col-sm-12">
-            <FeatureDetail feature={feature} />
+            <Detail object={feature} />
             <hr />
             <div>
               <CommentList comments={comments} />

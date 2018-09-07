@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import SingleForm from "./SingleForm";
 import EditButton from "./EditButton";
 
+// expects onSubmit, onCancel, onDelete, and an object to display form for
+
 class Editable extends Component {
   state = { editing: false, hovered: false };
 
@@ -64,8 +66,8 @@ class Editable extends Component {
     this.setState({ hovered: false });
   }
 
-  onSubmit(values) {
-    this.props.onSubmit(values);
+  async onSubmit(values) {
+    await this.props.onSubmit(values);
     this.setState({ editing: false });
   }
 
