@@ -6,7 +6,11 @@ import { connect } from "react-redux";
 
 const SingleForm = props => {
   return (
-    <form onSubmit={props.handleSubmit(props.onSubmit)} className="row" style={{marginLeft: "0px"}}>
+    <form
+      onSubmit={props.handleSubmit(props.onSubmit)}
+      className="row"
+      style={{ marginLeft: "0px" }}
+    >
       <button
         className="btn btn-warning col-auto"
         style={{ padding: "0px 8px", margin: "0px 4px", color: "white" }}
@@ -29,21 +33,21 @@ const SingleForm = props => {
       >
         <i className="far fa-save" />
       </button>
-      <button
-        className="btn btn-danger col-auto"
-        style={{ padding: "0px 8px", margin: "0px 4px" }}
-        onClick={props.onDelete}
-        type="button"
-      >
-        <i className="fas fa-trash" />
-      </button>
+      {props.onDelete && (
+        <button
+          className="btn btn-danger col-auto"
+          style={{ padding: "0px 8px", margin: "0px 4px" }}
+          onClick={props.onDelete}
+          type="button"
+        >
+          <i className="fas fa-trash" />
+        </button>
+      )}
     </form>
   );
 };
 
 function mapStateToProps(state, ownProps) {
-  console.log({...ownProps.object})
-
   return {
     initialValues: { ...ownProps.object },
     form: ownProps.object._id

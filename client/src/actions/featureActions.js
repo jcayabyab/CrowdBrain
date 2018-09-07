@@ -31,9 +31,20 @@ export const createFeature = values => async dispatch => {
   dispatch({ type: UPDATE_FEATURES, payload: res.data });
 };
 
-export const editFeature = values => async dispatch => {
-  /* format reduxform here */
-  const body = {};
+export const editFeature = (featureId, values) => async dispatch => {
+  console.log(values);
+  const { title, description, dateDue } = values;
+
+  const body = { featureId };
+  if (title) {
+    body.title = title;
+  }
+  if (description) {
+    body.description = description;
+  }
+  if (dateDue) {
+    body.dateDue = dateDue;
+  }
 
   const res = await axios.post("/api/feature/edit", body);
 

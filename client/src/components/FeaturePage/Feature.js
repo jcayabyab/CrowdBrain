@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { getProject } from "../../actions/projectActions";
-import { getFeature } from "../../actions/featureActions";
+import { getFeature, editFeature } from "../../actions/featureActions";
 import { getComments, wipeComments } from "../../actions/commentActions";
 import LoadingWheel from "../utils/LoadingWheel";
 import BackButtonWrapper from "../utils/BackButtonWrapper";
@@ -60,7 +60,11 @@ class Feature extends Component {
               {project.title}
             </ProjectText>
             <i className="fas fa-caret-right" style={{ margin: "0px 15px" }} />
-            <Editable style={{ fontWeight: "bold" }} object={feature}>
+            <Editable
+              style={{ fontWeight: "bold" }}
+              object={feature}
+              onSubmit={values => this.props.editFeature(feature._id, values)}
+            >
               {feature.title}
               <EditButton />
             </Editable>
@@ -107,5 +111,5 @@ function mapStateToProps({ projects, features, comments }, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { getProject, getFeature, getComments, wipeComments }
+  { getProject, getFeature, editFeature, getComments, wipeComments }
 )(Feature);

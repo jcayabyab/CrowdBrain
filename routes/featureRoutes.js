@@ -38,9 +38,21 @@ module.exports = app => {
 
   app.post("/api/feature/edit", requireLogin, async (req, res) => {
     const { featureId, title, description, dateDue } = req.body;
+    let updates = {};
+    if (title) {
+      updates.title = title;
+    }
+    if (description) {
+      updates.description = description;
+    }
+    if (dateDue) {
+      updates.dateDue = dateDue;
+    }
+
+    console.log(updates);
 
     await Feature.findByIdAndUpdate(featureId, {
-      $set: { title, description, dateDue }
+      $set: updates
     });
 
     //returns edited feature

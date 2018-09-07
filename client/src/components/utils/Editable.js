@@ -5,20 +5,35 @@ import EditButton from "./EditButton";
 class Editable extends Component {
   state = { editing: false, hovered: false };
 
+  findEditButton(children) {
+    return React.Children.map(children, child => {
+      if (!React.isValidElement(child)) {
+        return child;
+      }
+
+      if (child.type === EditButton) {
+        return React.cloneElement(child, {
+          onClick: () => this.setState({ editing: true }),
+          visible: this.state.hovered
+        });
+      }
+
+      if (child.props.children) {
+        child = React.cloneElement(child, {
+          children: this.findEditButton(child.props.children)
+        });
+      }
+
+      return child;
+    });
+  }
+
   render() {
     return this.state.editing ? this.renderForm() : this.renderBody();
   }
 
   renderBody() {
-    const children = React.Children.map(this.props.children, child => {
-      if(child.type === EditButton) {
-        return React.cloneElement(child, {
-          visible: this.state.hovered,
-          onClick: () => this.setState({ editing: true })
-        })
-      }
-      return child;
-    })
+    const children = this.findEditButton(this.props.children);
 
     return (
       <span
