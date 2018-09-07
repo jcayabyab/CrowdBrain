@@ -18,13 +18,11 @@ module.exports = app => {
   });
 
   app.post("/api/project/new", requireLogin, async (req, res) => {
-    const { title, description, dateDue } = req.body;
-
     const project = await new Project({
-      title,
-      description,
+      title: "New Project",
+      description: "Write a new description here!",
       dateCreated: new Date().getTime(),
-      dateDue,
+      dateDue: new Date().getTime,
       _user: req.user.id
     }).save();
 

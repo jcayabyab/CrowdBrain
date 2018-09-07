@@ -29,16 +29,14 @@ class SubtaskList extends Component {
     ));
   }
 
-  handleAdd() {
-    this.props.createSubtask(this.props.feature._id);
-  }
-
   render() {
     return (
       <div>
         <div className="list-group">{this.renderList()}</div>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <AddButton onClick={this.handleAdd.bind(this)} />
+          <AddButton
+            onClick={() => this.props.createSubtask(this.props.feature._id)}
+          />
         </div>
       </div>
     );

@@ -15,10 +15,8 @@ export const getProject = projectId => async dispatch => {
 };
 
 export const createProject = values => async dispatch => {
-  /* format reduxform here */
-  const body = {};
 
-  const res = await axios.post("/api/project/new", body);
+  const res = await axios.post("/api/project/new");
 
   dispatch({ type: UPDATE_PROJECTS, payload: res.data });
 };
