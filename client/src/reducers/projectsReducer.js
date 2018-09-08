@@ -2,10 +2,11 @@ import _ from "lodash";
 import {
   GET_PROJECTS,
   UPDATE_PROJECTS,
-  DELETE_PROJECT
+  DELETE_PROJECT,
+  WIPE_PROJECTS
 } from "../actions/types";
 
-export default function(state = {notLoaded: true}, action) {
+export default function(state = { notLoaded: true }, action) {
   switch (action.type) {
     case GET_PROJECTS:
       return _.mapKeys(action.payload, "_id");
@@ -16,6 +17,8 @@ export default function(state = {notLoaded: true}, action) {
     }
     case DELETE_PROJECT:
       return _.filter(state, { _id: !action.payload._id });
+    case WIPE_PROJECTS:
+      return { notLoaded: true };
     default:
       return state;
   }

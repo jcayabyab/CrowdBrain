@@ -76,7 +76,7 @@ class Editable extends Component {
   }
 
   onCancel() {
-    this.setState({ editing: false });
+    this.setState({ editing: false, hovered: false });
   }
 }
 

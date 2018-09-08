@@ -3,6 +3,7 @@ export const FETCH_USER = "FETCH_USER";
 export const GET_PROJECTS = "GET_PROJECTS";
 export const UPDATE_PROJECTS = "UPDATE_PROJECTS";
 export const DELETE_PROJECT = "DELETE_PROJECT";
+export const WIPE_PROJECTS = "WIPE_PROJECTS";
 
 export const GET_FEATURES = "GET_FEATURES";
 export const UPDATE_FEATURES = "UPDATE_FEATURES";

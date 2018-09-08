@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { getProjects } from "../../actions/projectActions";
+import { getProjects, wipeProjects } from "../../actions/projectActions";
 import ProjectList from "./ProjectList";
 import ActivityFeed from "./ActivityFeed";
 
 class Dashboard extends Component {
   componentDidMount() {
+    this.props.wipeProjects();
     this.props.getProjects();
   }
 
@@ -30,5 +31,5 @@ class Dashboard extends Component {
 
 export default connect(
   null,
-  { getProjects }
+  { getProjects, wipeProjects }
 )(Dashboard);

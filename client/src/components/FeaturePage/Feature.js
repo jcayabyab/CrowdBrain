@@ -1,29 +1,37 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { getProject } from "../../actions/projectActions";
 import {
   getFeature,
   editFeature,
+  deleteFeature,
   wipeFeatures
 } from "../../actions/featureActions";
 import { getComments, wipeComments } from "../../actions/commentActions";
 import LoadingWheel from "../utils/LoadingWheel";
-import BackButtonWrapper from "../utils/BackButtonWrapper";
+import BackButton from "../utils/BackButton";
 import Detail from "../utils/Detail";
 import SubtaskList from "./SubtaskList";
 import CommentList from "./CommentList";
 import CommentForm from "./CommentForm";
 import Editable from "../utils/Editable";
 import EditButton from "../utils/EditButton";
+import DeleteButton from "../utils/DeleteButton";
 
 const Header = styled.div`
   font-size: 16pt;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+`;
+
+const HeaderText = styled.div`
+  display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 const ProjectText = styled(Link)`
@@ -44,68 +52,63 @@ class Feature extends Component {
     await this.props.getComments(this.props.feature._id);
   }
 
-  componentWillUnmount() {
-    this.props.wipeFeatures();
-    this.props.wipeComments();
+  render() {
+    const { project, feature, comments, editFeature } = this.props;
+
+    if (project && feature) {
+      return (
+        <div>
+          {this.renderHeader()}
+          <hr style={{ marginTop: "4px" }} />
+          <div className="row">
+            <div className="col-md-7 col-sm-12">
+              <Detail
+                object={feature}
+                onSubmit={values => editFeature(feature._id, values)}
+              />
+              <hr />
+              <div>
+                <CommentList comments={comments} />
+                <CommentForm />
+              </div>
+            </div>
+            <div className="col-md-5 col-sm-12">
+              <SubtaskList feature={feature} />
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return <LoadingWheel />;
   }
 
   renderHeader() {
     const { project, feature } = this.props;
+    const projectURL = `/p/${this.props.match.params.projectId}`;
 
     return (
-      <div>
-        <div style={{ position: "relative", margin: "5px 0 -10px" }}>
-          <BackButtonWrapper>
-            <Link to={`/p/${this.props.match.params.projectId}`}>
-              <i className="far fa-caret-square-left" />
-            </Link>
-          </BackButtonWrapper>
-          <Header>
-            <ProjectText to={`/p/${this.props.match.params.projectId}`}>
-              {project.title}
-            </ProjectText>
-            <i className="fas fa-caret-right" style={{ margin: "0px 15px" }} />
-            <Editable
-              style={{ fontWeight: "bold" }}
-              object={feature}
-              onSubmit={values => this.props.editFeature(feature._id, values)}
-            >
-              {feature.title}
-              <EditButton />
-            </Editable>
-          </Header>
-        </div>
-      </div>
+      <Header>
+        <BackButton to={projectURL} />
+        <HeaderText>
+          <ProjectText to={projectURL}>{project.title}</ProjectText>
+          <i className="fas fa-caret-right" style={{ margin: "0px 15px" }} />
+          <Editable
+            style={{ fontWeight: "bold" }}
+            object={feature}
+            onSubmit={values => this.props.editFeature(feature._id, values)}
+          >
+            {feature.title}
+            <EditButton />
+          </Editable>
+        </HeaderText>
+        <DeleteButton onClick={this.handleDelete.bind(this)} />
+      </Header>
     );
   }
 
-  render() {
-    const { project, feature, comments, editFeature } = this.props;
-
-    return project && feature ? (
-      <div>
-        {this.renderHeader()}
-        <hr />
-        <div className="row">
-          <div className="col-md-7 col-sm-12">
-            <Detail
-              object={feature}
-              onSubmit={values => editFeature(feature._id, values)}
-            />
-            <hr />
-            <div>
-              <CommentList comments={comments} />
-              <CommentForm />
-            </div>
-          </div>
-          <div className="col-md-5 col-sm-12">
-            <SubtaskList feature={feature} />
-          </div>
-        </div>
-      </div>
-    ) : (
-      <LoadingWheel />
-    );
+  async handleDelete() {
+    await this.props.deleteFeature(this.props.feature._id);
+    this.props.history.push(`/p/${this.props.match.params.projectId}`);
   }
 }
 
@@ -123,8 +126,9 @@ export default connect(
     getProject,
     getFeature,
     editFeature,
+    deleteFeature,
     getComments,
     wipeFeatures,
     wipeComments
   }
-)(Feature);
+)(withRouter(Feature));

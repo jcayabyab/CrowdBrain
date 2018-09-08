@@ -52,7 +52,7 @@ module.exports = app => {
   app.post("/api/feature/delete", requireLogin, async (req, res) => {
     const { featureId } = req.body;
 
-    const feature = await Project.findByIdAndDelete(featureId);
+    const feature = await Feature.findByIdAndDelete(featureId);
 
     res.send(feature);
   });

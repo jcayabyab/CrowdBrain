@@ -1,57 +1,31 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 import { getFeatures, wipeFeatures } from "../../actions/featureActions";
-import { getProject, editProject } from "../../actions/projectActions";
+import { wipeComments } from "../../actions/commentActions";
+import { getProject, editProject, deleteProject } from "../../actions/projectActions";
 import LoadingWheel from "../utils/LoadingWheel";
 import FeatureList from "./FeatureList";
 import Detail from "../utils/Detail";
-import BackButtonWrapper from "../utils/BackButtonWrapper";
+import BackButton from "../utils/BackButton";
 import Editable from "../utils/Editable";
 import EditButton from "../utils/EditButton";
+import DeleteButton from "../utils/DeleteButton";
 
 const Header = styled.div`
   font-size: 16pt;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 class Project extends Component {
   async componentDidMount() {
+    this.props.wipeFeatures();
+    this.props.wipeComments();
     await this.props.getProject(this.props.match.params.projectId);
     await this.props.getFeatures(this.props.project._id);
-  }
-
-  componentWillUnmount() {
-    this.props.wipeFeatures();
-  }
-
-  renderHeader() {
-    const { project } = this.props;
-
-    return (
-      <div>
-        <div style={{ position: "relative", margin: "5px 0 -10px" }}>
-          <BackButtonWrapper>
-            <Link to="/dashboard">
-              <i className="far fa-caret-square-left" />
-            </Link>
-          </BackButtonWrapper>
-          <Header>
-            <Editable
-              object={project}
-              onSubmit={values => this.props.editProject(project._id, values)}
-            >
-              {project.title}
-              <EditButton />
-            </Editable>
-          </Header>
-        </div>
-      </div>
-    );
   }
 
   render() {
@@ -61,7 +35,7 @@ class Project extends Component {
       return (
         <div>
           {this.renderHeader()}
-          <hr />
+          <hr style={{marginTop: "4px"}}/>
           <div className="row">
             <div className="col-md-7 col-sm-12">
               <Detail
@@ -78,8 +52,32 @@ class Project extends Component {
         </div>
       );
     }
-
     return <LoadingWheel />;
+  }
+
+  renderHeader() {
+    const { project } = this.props;
+
+    return (
+      <div>
+        <Header>
+          <BackButton to="/dashboard" />
+          <Editable
+            object={project}
+            onSubmit={values => this.props.editProject(project._id, values)}
+          >
+            {project.title}
+            <EditButton />
+          </Editable>
+          <DeleteButton onClick={this.handleDelete.bind(this)} />
+        </Header>
+      </div>
+    );
+  }
+
+  async handleDelete() {
+    await this.props.deleteProject(this.props.project._id);
+    this.props.history.push(`/dashboard`);
   }
 }
 
@@ -92,5 +90,5 @@ function mapStateToProps({ projects, features }, ownProps) {
 
 export default connect(
   mapStateToProps,
-  { getFeatures, getProject, editProject, wipeFeatures }
+  { getFeatures, getProject, editProject, deleteProject, wipeFeatures, wipeComments }
 )(Project);
