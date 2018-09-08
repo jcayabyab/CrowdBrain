@@ -33,7 +33,16 @@ class SubtaskList extends Component {
     return (
       <div>
         <div className="list-group">{this.renderList()}</div>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center"
+          }}
+        >
+          {this.props.feature.subtasks.length < 1 && (
+            <div>Create a subtask here: </div>
+          )}
           <AddButton
             onClick={() => this.props.createSubtask(this.props.feature._id)}
           />

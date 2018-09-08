@@ -23,13 +23,13 @@ module.exports = app => {
   });
 
   app.post("/api/feature/new", requireLogin, async (req, res) => {
-    const { projectId, title, description, dateDue } = req.body;
+    const { projectId } = req.body;
 
     const feature = await new Feature({
-      title,
-      description,
+      title: "New Feature",
+      description: "Write description here",
       dateCreated: new Date().getTime(),
-      dateDue,
+      dateDue: new Date().getTime(),
       _project: projectId
     }).save();
 

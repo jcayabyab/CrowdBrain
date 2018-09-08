@@ -22,7 +22,7 @@ module.exports = app => {
       title: "New Project",
       description: "Write a new description here!",
       dateCreated: new Date().getTime(),
-      dateDue: new Date().getTime,
+      dateDue: new Date().getTime(),
       _user: req.user.id
     }).save();
 

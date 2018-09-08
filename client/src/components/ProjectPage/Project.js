@@ -70,6 +70,8 @@ class Project extends Component {
               />
             </div>
             <div className="col-md-5 col-sm-12">
+              <div>Features:</div>
+              <hr style={{ margin: "5px 0px 12px" }} />
               <FeatureList features={features} projectId={project._id} />
             </div>
           </div>
@@ -83,7 +85,6 @@ class Project extends Component {
 
 function mapStateToProps({ projects, features }, ownProps) {
   return {
-    projects: projects,
     project: projects[ownProps.match.params.projectId],
     features
   };

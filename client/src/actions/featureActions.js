@@ -22,9 +22,8 @@ export const getFeature = featureId => async dispatch => {
   dispatch({ type: UPDATE_FEATURES, payload: res.data });
 };
 
-export const createFeature = values => async dispatch => {
-  /* format reduxform here */
-  const body = {};
+export const createFeature = projectId => async dispatch => {
+  const body = { projectId };
 
   const res = await axios.post("/api/feature/new", body);
 

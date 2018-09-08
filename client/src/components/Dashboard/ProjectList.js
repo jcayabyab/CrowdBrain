@@ -8,27 +8,26 @@ import LoadingWheel from "../utils/LoadingWheel";
 import AddButton from "../utils/AddButton";
 
 class ProjectList extends Component {
-  componentDidMount() {
-    this.props.getProjects();
-  }
-
-  renderProjects() {
-    if (_.isEmpty(this.props.projects)) {
-      return (
-        <div style={{ padding: "20px 0px" }}>
-          <LoadingWheel style={{ margin: "0 auto" }} size="40" />
-        </div>
-      );
+  renderList() {
+    if (this.props.projects.notLoaded) {
+      return <LoadingWheel />;
     }
     return (
       <div>
         {_.map(this.props.projects, project => (
           <ProjectListItem key={project._id} project={project} />
         ))}
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <AddButton
-            onClick={() => this.props.createProject()}
-          />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center"
+          }}
+        >
+          {_.isEmpty(this.props.projects) && (
+            <div>Create a new project here: </div>
+          )}
+          <AddButton onClick={() => this.props.createProject()} />
         </div>
       </div>
     );
@@ -37,9 +36,7 @@ class ProjectList extends Component {
   render() {
     return (
       <div>
-        <div style={{ marginBottom: "-10px", fontSize: "16pt" }}>Projects</div>
-        <hr />
-        {this.renderProjects()}
+        {this.renderList()}
       </div>
     );
   }
