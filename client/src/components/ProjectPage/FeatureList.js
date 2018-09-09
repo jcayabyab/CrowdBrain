@@ -1,42 +1,34 @@
-import _ from "lodash";
 import React from "react";
 import { connect } from "react-redux";
 
 import { createFeature } from "../../actions/featureActions";
 import FeatureListItem from "./FeatureListItem";
-import LoadingWheel from "../utils/LoadingWheel";
-import AddFooter from "../utils/AddFooter";
+import List from "../utils/List";
 
 const FeatureList = props => {
   const { features, projectId, createFeature } = props;
-
-  if (features.notLoaded) {
-    return (
-      <div>
-        <LoadingWheel />
-      </div>
-    );
-  }
+  const mapFunction = feature => (
+    <FeatureListItem
+      key={feature._id}
+      feature={feature}
+      projectId={projectId}
+    />
+  );
 
   return (
-    <div>
-      {_.map(features, feature => (
-        <FeatureListItem
-          key={feature._id}
-          feature={feature}
-          projectId={projectId}
-        />
-      ))}
-      <AddFooter
-        empty={_.isEmpty(features)}
-        description="Create a new feature here: "
-        onClick={() => createFeature(projectId)}
-      />
-    </div>
+    <List
+      objects={features}
+      createFunction={() => createFeature(projectId)}
+      mapFunction={mapFunction}
+    />
   );
 };
 
+function mapStateToProps({ features }) {
+  return { features };
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   { createFeature }
 )(FeatureList);

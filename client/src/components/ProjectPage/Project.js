@@ -29,7 +29,7 @@ class Project extends Component {
   }
 
   render() {
-    const { project, features, editProject } = this.props;
+    const { project, editProject } = this.props;
 
     if (project) {
       return (
@@ -46,7 +46,7 @@ class Project extends Component {
             <div className="col-md-5 col-sm-12">
               <div>Features:</div>
               <hr style={{ margin: "5px 0px 12px" }} />
-              <FeatureList features={features} projectId={project._id} />
+              <FeatureList projectId={project._id} />
             </div>
           </div>
         </div>
@@ -81,10 +81,9 @@ class Project extends Component {
   }
 }
 
-function mapStateToProps({ projects, features }, ownProps) {
+function mapStateToProps({ projects }, ownProps) {
   return {
-    project: projects[ownProps.match.params.projectId],
-    features
+    project: projects[ownProps.match.params.projectId]
   };
 }
 

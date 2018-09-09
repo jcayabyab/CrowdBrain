@@ -4,6 +4,12 @@ import { connect } from "react-redux";
 import { getProjects, wipeProjects } from "../../actions/projectActions";
 import ProjectList from "./ProjectList";
 import ActivityFeed from "./ActivityFeed";
+import styled from "styled-components";
+
+const ProjectHeader = styled.div`
+  margin-bottom: -10px;
+  font-size: 16pt;
+`;
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -15,9 +21,7 @@ class Dashboard extends Component {
     return (
       <div className="row">
         <div className="col-md-5 col-sm-12">
-          <div style={{ marginBottom: "-10px", fontSize: "16pt" }}>
-            Projects
-          </div>
+          <ProjectHeader>Projects</ProjectHeader>
           <hr />
           <ProjectList />
         </div>
