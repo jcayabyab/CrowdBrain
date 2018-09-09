@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SingleForm from "./SingleForm";
 import EditButton from "./EditButton";
+import { connect } from "react-redux";
 
 // expects onSubmit, section, type of input, onCancel, onDelete, and an object to display form for
 
@@ -14,10 +15,13 @@ class Editable extends Component {
       }
 
       if (child.type === EditButton) {
-        return React.cloneElement(child, {
-          onClick: () => this.setState({ editing: true }),
-          visible: this.state.hovered
-        });
+        if (this.props.user) {
+          return React.cloneElement(child, {
+            onClick: () => this.setState({ editing: true }),
+            visible: this.state.hovered
+          });
+        }
+        return null;
       }
 
       if (child.props.children) {
@@ -80,4 +84,8 @@ class Editable extends Component {
   }
 }
 
-export default Editable;
+function mapStateToProps({ user }) {
+  return { user };
+}
+
+export default connect(mapStateToProps)(Editable);

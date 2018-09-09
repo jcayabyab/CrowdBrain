@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
 
 const Comment = mongoose.model("comments");
+const Feature = mongoose.model("features");
 
 module.exports = app => {
   app.post("/api/comments/", async (req, res) => {
@@ -25,11 +26,14 @@ module.exports = app => {
   app.post("/api/comment/new", async (req, res) => {
     const { featureId, username, body } = req.body;
 
+    const projectId = await Feature.findById(featureId)._project;
+
     const comment = await new Comment({
       body,
       username,
       dateCreated: new Date().getTime(),
-      _feature: featureId
+      _feature: featureId,
+      _project: projectId
     }).save();
 
     res.send(comment);
@@ -47,8 +51,8 @@ module.exports = app => {
         $set: { body }
       });
 
-      //returns edited feature
-      const comment = await comment.findById(commentId);
+      //returns edited comment
+      const comment = await Comment.findById(commentId);
 
       res.send(comment);
     }

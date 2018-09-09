@@ -2,16 +2,17 @@ const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
 
 const Feature = mongoose.model("features");
+const Comment = mongoose.model("comments");
 
 module.exports = app => {
-  app.post("/api/features/", requireLogin, async (req, res) => {
+  app.post("/api/features/", async (req, res) => {
     const { projectId } = req.body;
 
     const features = await Feature.find({ _project: projectId });
     res.send(features);
   });
 
-  app.post("/api/feature/", requireLogin, async (req, res) => {
+  app.post("/api/feature/", async (req, res) => {
     const { featureId } = req.body;
 
     try {
@@ -30,7 +31,8 @@ module.exports = app => {
       description: "Write description here",
       dateCreated: new Date().getTime(),
       dateDue: new Date().getTime(),
-      _project: projectId
+      _project: projectId,
+      _user: req.user
     }).save();
 
     res.send(feature);
@@ -51,6 +53,8 @@ module.exports = app => {
 
   app.post("/api/feature/delete", requireLogin, async (req, res) => {
     const { featureId } = req.body;
+
+    await Comment.deleteMany({ _feature: featureId });
 
     const feature = await Feature.findByIdAndDelete(featureId);
 

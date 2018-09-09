@@ -8,7 +8,8 @@ const featureSchema = new Schema({
   dateCreated: Number,
   dateDue: Number,
   subtasks: { type: [subtaskSchema], default: [] },
-  _project: { type: Schema.Types.ObjectId, ref: "projects" }
+  _project: { type: Schema.Types.ObjectId, ref: "projects" },
+  _user: { type: Schema.Types.ObjectId, ref: "users" }
 });
 
 featureSchema.virtual("completed").get(() => {

@@ -2,14 +2,16 @@ const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
 
 const Project = mongoose.model("projects");
+const Feature = mongoose.model("features");
+const Comment = mongoose.model("comments");
 
 module.exports = app => {
-  app.get("/api/projects/", requireLogin, async (req, res) => {
+  app.get("/api/projects/", async (req, res) => {
     const projects = await Project.find({ _user: req.user.id });
     res.send(projects);
   });
 
-  app.post("/api/project", requireLogin, async (req, res) => {
+  app.post("/api/project", async (req, res) => {
     const { projectId } = req.body;
 
     const project = await Project.findById(projectId);
@@ -44,6 +46,8 @@ module.exports = app => {
 
   app.post("/api/project/delete", requireLogin, async (req, res) => {
     const { projectId } = req.body;
+    await Feature.deleteMany({_project: projectId});
+    await Comment.deleteMany({_project: projectId});
 
     const project = await Project.findByIdAndDelete(projectId);
 
