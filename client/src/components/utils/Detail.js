@@ -12,6 +12,10 @@ const Dates = styled.div`
   justify-content: space-between;
 `;
 
+const Body = styled.div`
+  white-space: pre-wrap;
+`;
+
 const Detail = ({ object, onSubmit }) => (
   <div>
     <Editable
@@ -21,7 +25,7 @@ const Detail = ({ object, onSubmit }) => (
       onSubmit={values => onSubmit(values)}
     >
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div>{object.description}</div>
+        <Body>{object.description}</Body>
         <EditButton />
       </div>
     </Editable>

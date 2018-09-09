@@ -68,8 +68,8 @@ class Feature extends Component {
               />
               <hr />
               <div>
-                <CommentList comments={comments} />
                 <CommentForm />
+                <CommentList comments={comments} />
               </div>
             </div>
             <div className="col-md-5 col-sm-12">

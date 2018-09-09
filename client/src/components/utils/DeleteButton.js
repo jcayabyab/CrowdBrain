@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
 
 const Wrapper = styled.a`
   text-decoration: none;
@@ -18,10 +19,17 @@ const Button = styled.i`
   }
 `;
 
-const DeleteButton = props => (
-  <Wrapper onClick={props.onClick}>
-    <Button className="fas fa-trash" />
-  </Wrapper>
-);
+const DeleteButton = ({ user, onClick }) =>
+  user ? (
+    <Wrapper onClick={onClick}>
+      <Button className="fas fa-trash" />
+    </Wrapper>
+  ) : (
+    <div />
+  );
 
-export default DeleteButton;
+function mapStateToProps({ user }) {
+  return { user };
+}
+
+export default connect(mapStateToProps)(DeleteButton);
