@@ -7,7 +7,7 @@ import LoadingWheel from "../utils/LoadingWheel";
 import AddFooter from "../utils/AddFooter";
 
 const List = props => {
-  const { objects, createFunction, mapFunction } = props;
+  const { objects, description, createFunction, mapFunction } = props;
 
   if (objects.notLoaded) {
     return (
@@ -22,7 +22,7 @@ const List = props => {
       {_.map(objects, mapFunction)}
       <AddFooter
         empty={_.isEmpty(objects)}
-        description="Create a new feature here: "
+        description={description}
         onClick={createFunction}
       />
     </div>
