@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import SubtaskListItem from "./SubtaskListItem";
 import { connect } from "react-redux";
 
@@ -8,49 +8,37 @@ import {
   deleteSubtask,
   toggleSubtask
 } from "../../actions/subtasksActions";
-import AddButton from "../utils/AddButton";
+import List from "../utils/List";
 
-class SubtaskList extends Component {
-  renderList() {
-    const { subtasks } = this.props.feature;
-    const { feature } = this.props;
-    return subtasks.map(subtask => (
-      <SubtaskListItem
-        key={subtask._id}
-        subtask={subtask}
-        onToggle={async () =>
-          await this.props.toggleSubtask(feature._id, subtask._id)
-        }
-        onEdit={values =>
-          this.props.editSubtask(feature._id, subtask._id, values)
-        }
-        onDelete={() => this.props.deleteSubtask(feature._id, subtask._id)}
-      />
-    ));
-  }
+const SubtaskList = props => {
+  const { subtasks } = props.feature;
+  const {
+    feature,
+    toggleSubtask,
+    editSubtask,
+    deleteSubtask,
+    createSubtask
+  } = props;
 
-  render() {
-    return (
-      <div>
-        <div className="list-group">{this.renderList()}</div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center"
-          }}
-        >
-          {this.props.feature.subtasks.length < 1 && (
-            <div>Create a subtask here: </div>
-          )}
-          <AddButton
-            onClick={() => this.props.createSubtask(this.props.feature._id)}
-          />
-        </div>
-      </div>
-    );
-  }
-}
+  const mapFunction = subtask => (
+    <SubtaskListItem
+      key={subtask._id}
+      subtask={subtask}
+      onToggle={() => toggleSubtask(feature._id, subtask._id)}
+      onEdit={values => editSubtask(feature._id, subtask._id, values)}
+      onDelete={() => deleteSubtask(feature._id, subtask._id)}
+    />
+  );
+
+  return (
+    <List
+      objects={subtasks}
+      description="Create a new subtask here: "
+      createFunction={() => createSubtask(feature._id)}
+      mapFunction={mapFunction}
+    />
+  );
+};
 
 export default connect(
   null,

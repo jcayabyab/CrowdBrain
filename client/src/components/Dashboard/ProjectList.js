@@ -14,7 +14,8 @@ const ProjectList = props => {
   return (
     <List
       objects={projects}
-      createFunction={() => createProject}
+      description="Create a new project here: "
+      createFunction={() => createProject()}
       mapFunction={mapFunction}
     />
   );

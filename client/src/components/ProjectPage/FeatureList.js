@@ -18,6 +18,7 @@ const FeatureList = props => {
   return (
     <List
       objects={features}
+      description="Create a new feature here: "
       createFunction={() => createFeature(projectId)}
       mapFunction={mapFunction}
     />
