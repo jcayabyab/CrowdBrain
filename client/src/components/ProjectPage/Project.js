@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 
 import { fetchOwner } from "../../actions";
 import { getFeatures, wipeFeatures } from "../../actions/featureActions";
@@ -13,17 +12,9 @@ import {
 import LoadingWheel from "../utils/LoadingWheel";
 import FeatureList from "./FeatureList";
 import Detail from "../utils/Detail";
-import BackButton from "../utils/BackButton";
 import Editable from "../utils/Editable";
 import EditButton from "../utils/EditButton";
-import DeleteButton from "../utils/DeleteButton";
-
-const Header = styled.div`
-  font-size: 16pt;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: center;
-`;
+import PageHeader from "../utils/PageHeader";
 
 class Project extends Component {
   async componentDidMount() {
@@ -40,7 +31,20 @@ class Project extends Component {
     if (project) {
       return (
         <div>
-          {this.renderHeader()}
+          <PageHeader
+            backURL="/dashboard"
+            onDeleteClick={this.handleDelete.bind(this)}
+          >
+            <Editable
+              object={project}
+              onSubmit={values => this.props.editProject(project._id, values)}
+            >
+              <div style={{ textAlign: "center" }}>
+                {project.title}
+                <EditButton />
+              </div>
+            </Editable>
+          </PageHeader>
           <hr style={{ marginTop: "4px" }} />
           <div className="row">
             <div className="col-md-7 col-sm-12">
@@ -59,41 +63,6 @@ class Project extends Component {
       );
     }
     return <LoadingWheel />;
-  }
-
-  renderHeader() {
-    const { project, owner } = this.props;
-
-    return (
-      <div>
-        <Header>
-          <BackButton to="/dashboard" />
-          <Editable
-            object={project}
-            onSubmit={values => this.props.editProject(project._id, values)}
-          >
-            <div style={{ textAlign: "center" }}>
-              {project.title}
-              <EditButton />
-            </div>
-          </Editable>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              alignItems: "center"
-            }}
-          >
-            <div style={{ fontSize: "10pt", margin: "0px 3px" }}>
-              {/*create toggle if owner or not*/}
-              {owner.firstName &&
-                `created by ${owner.firstName} ${owner.lastName}`}
-            </div>
-            <DeleteButton onClick={this.handleDelete.bind(this)} />
-          </div>
-        </Header>
-      </div>
-    );
   }
 
   async handleDelete() {

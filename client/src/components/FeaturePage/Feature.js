@@ -13,28 +13,13 @@ import {
 } from "../../actions/featureActions";
 import { getComments, wipeComments } from "../../actions/commentActions";
 import LoadingWheel from "../utils/LoadingWheel";
-import BackButton from "../utils/BackButton";
 import Detail from "../utils/Detail";
 import SubtaskList from "./SubtaskList";
 import CommentList from "./CommentList";
 import CommentForm from "./CommentForm";
 import Editable from "../utils/Editable";
 import EditButton from "../utils/EditButton";
-import DeleteButton from "../utils/DeleteButton";
 import PageHeader from "../utils/PageHeader";
-
-const Header = styled.div`
-  font-size: 16pt;
-  display: grid;
-  grid-template-columns: 1fr minmax(500px, 1fr) 1fr;
-  align-items: center;
-`;
-
-const HeaderText = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 
 const ProjectText = styled(Link)`
   text-decoration: none;
@@ -56,7 +41,7 @@ class Feature extends Component {
   }
 
   render() {
-    const { project, feature, comments, editFeature, owner } = this.props;
+    const { project, feature, comments, editFeature } = this.props;
     const projectURL = `/p/${this.props.match.params.projectId}`;
 
     if (project && feature) {
@@ -98,43 +83,6 @@ class Feature extends Component {
       );
     }
     return <LoadingWheel />;
-  }
-
-  renderHeader() {
-    const { project, feature, owner } = this.props;
-    const projectURL = `/p/${this.props.match.params.projectId}`;
-
-    return (
-      <Header>
-        <BackButton to={projectURL} />
-        <HeaderText>
-          <ProjectText to={projectURL}>{project.title}</ProjectText>
-          <i className="fas fa-caret-right" style={{ margin: "0px 15px" }} />
-          <Editable
-            style={{ fontWeight: "bold" }}
-            object={feature}
-            onSubmit={values => this.props.editFeature(feature._id, values)}
-          >
-            {feature.title}
-            <EditButton />
-          </Editable>
-        </HeaderText>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center"
-          }}
-        >
-          <div style={{ fontSize: "10pt", margin: "0px 3px" }}>
-            {/*create toggle if owner or not*/}
-            {owner.firstName &&
-              `created by ${owner.firstName} ${owner.lastName}`}
-          </div>
-          <DeleteButton onClick={this.handleDelete.bind(this)} />
-        </div>
-      </Header>
-    );
   }
 
   async handleDelete() {
