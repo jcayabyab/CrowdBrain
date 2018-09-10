@@ -20,11 +20,13 @@ const List = props => {
   return (
     <div>
       {_.map(objects, mapFunction)}
-      <AddFooter
-        empty={_.isEmpty(objects)}
-        description={description}
-        onClick={createFunction}
-      />
+      {createFunction && (
+        <AddFooter
+          empty={_.isEmpty(objects)}
+          description={description}
+          onClick={createFunction}
+        />
+      )}
     </div>
   );
 };
