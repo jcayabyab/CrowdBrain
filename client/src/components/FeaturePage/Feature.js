@@ -21,6 +21,7 @@ import CommentForm from "./CommentForm";
 import Editable from "../utils/Editable";
 import EditButton from "../utils/EditButton";
 import DeleteButton from "../utils/DeleteButton";
+import PageHeader from "../utils/PageHeader";
 
 const Header = styled.div`
   font-size: 16pt;
@@ -48,19 +49,34 @@ const ProjectText = styled(Link)`
 
 class Feature extends Component {
   async componentDidMount() {
-    this.props.getProject(this.props.match.params.projectId);
+    await this.props.getProject(this.props.match.params.projectId);
     await this.props.getFeature(this.props.match.params.featureId);
     this.props.getComments(this.props.feature._id);
     this.props.fetchOwner(this.props.project._user);
   }
 
   render() {
-    const { project, feature, comments, editFeature } = this.props;
+    const { project, feature, comments, editFeature, owner } = this.props;
+    const projectURL = `/p/${this.props.match.params.projectId}`;
 
     if (project && feature) {
       return (
         <div>
-          {this.renderHeader()}
+          <PageHeader
+            backURL={projectURL}
+            onDeleteClick={this.handleDelete.bind(this)}
+          >
+            <ProjectText to={projectURL}>{project.title}</ProjectText>
+            <i className="fas fa-caret-right" style={{ margin: "0px 15px" }} />
+            <Editable
+              style={{ fontWeight: "bold" }}
+              object={feature}
+              onSubmit={values => this.props.editFeature(feature._id, values)}
+            >
+              {feature.title}
+              <EditButton />
+            </Editable>
+          </PageHeader>
           <hr style={{ marginTop: "4px" }} />
           <div className="row">
             <div className="col-md-7 col-sm-12">
@@ -110,8 +126,8 @@ class Feature extends Component {
             alignItems: "center"
           }}
         >
-          <div style={{fontSize: "10pt", margin: "0px 3px"}}> 
-          {/*create toggle if owner or not*/}
+          <div style={{ fontSize: "10pt", margin: "0px 3px" }}>
+            {/*create toggle if owner or not*/}
             {owner.firstName &&
               `created by ${owner.firstName} ${owner.lastName}`}
           </div>
