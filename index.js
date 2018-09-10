@@ -30,6 +30,7 @@ app.use(passport.session());
 
 // routes go here
 require("./routes/authRoutes")(app);
+require("./routes/ownerRoutes")(app);
 require("./routes/projectRoutes")(app);
 require("./routes/featureRoutes")(app);
 require("./routes/subtaskRoutes")(app);

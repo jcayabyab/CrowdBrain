@@ -2,9 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
+import { fetchOwner } from "../../actions";
 import { getFeatures, wipeFeatures } from "../../actions/featureActions";
 import { wipeComments } from "../../actions/commentActions";
-import { getProject, editProject, deleteProject } from "../../actions/projectActions";
+import {
+  getProject,
+  editProject,
+  deleteProject
+} from "../../actions/projectActions";
 import LoadingWheel from "../utils/LoadingWheel";
 import FeatureList from "./FeatureList";
 import Detail from "../utils/Detail";
@@ -15,9 +20,9 @@ import DeleteButton from "../utils/DeleteButton";
 
 const Header = styled.div`
   font-size: 16pt;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
-  justify-content: space-between;
 `;
 
 class Project extends Component {
@@ -25,7 +30,8 @@ class Project extends Component {
     this.props.wipeFeatures();
     this.props.wipeComments();
     await this.props.getProject(this.props.match.params.projectId);
-    await this.props.getFeatures(this.props.project._id);
+    this.props.getFeatures(this.props.match.params.projectId);
+    this.props.fetchOwner(this.props.project._user);
   }
 
   render() {
@@ -35,7 +41,7 @@ class Project extends Component {
       return (
         <div>
           {this.renderHeader()}
-          <hr style={{marginTop: "4px"}}/>
+          <hr style={{ marginTop: "4px" }} />
           <div className="row">
             <div className="col-md-7 col-sm-12">
               <Detail
@@ -56,7 +62,7 @@ class Project extends Component {
   }
 
   renderHeader() {
-    const { project } = this.props;
+    const { project, owner } = this.props;
 
     return (
       <div>
@@ -66,10 +72,25 @@ class Project extends Component {
             object={project}
             onSubmit={values => this.props.editProject(project._id, values)}
           >
-            {project.title}
-            <EditButton />
+            <div style={{ textAlign: "center" }}>
+              {project.title}
+              <EditButton />
+            </div>
           </Editable>
-          <DeleteButton onClick={this.handleDelete.bind(this)} />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center"
+            }}
+          >
+            <div style={{ fontSize: "10pt", margin: "0px 3px" }}>
+              {/*create toggle if owner or not*/}
+              {owner.firstName &&
+                `created by ${owner.firstName} ${owner.lastName}`}
+            </div>
+            <DeleteButton onClick={this.handleDelete.bind(this)} />
+          </div>
         </Header>
       </div>
     );
@@ -81,13 +102,22 @@ class Project extends Component {
   }
 }
 
-function mapStateToProps({ projects }, ownProps) {
+function mapStateToProps({ projects, owner }, ownProps) {
   return {
-    project: projects[ownProps.match.params.projectId]
+    project: projects[ownProps.match.params.projectId],
+    owner
   };
 }
 
 export default connect(
   mapStateToProps,
-  { getFeatures, getProject, editProject, deleteProject, wipeFeatures, wipeComments }
+  {
+    fetchOwner,
+    getFeatures,
+    getProject,
+    editProject,
+    deleteProject,
+    wipeFeatures,
+    wipeComments
+  }
 )(Project);

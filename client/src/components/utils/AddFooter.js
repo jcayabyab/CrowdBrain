@@ -7,8 +7,6 @@ const AddFooter = props => {
   const { empty, description, onClick } = props;
 
   if (props.user) {
-    console.log(props.user);
-
     return (
       <div
         style={{

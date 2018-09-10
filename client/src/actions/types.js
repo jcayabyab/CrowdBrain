@@ -1,4 +1,5 @@
 export const FETCH_USER = "FETCH_USER";
+export const FETCH_OWNER = "FETCH_OWNER";
 
 export const GET_PROJECTS = "GET_PROJECTS";
 export const UPDATE_PROJECTS = "UPDATE_PROJECTS";

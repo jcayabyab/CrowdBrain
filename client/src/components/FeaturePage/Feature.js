@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link, withRouter } from "react-router-dom";
 
+import { fetchOwner } from "../../actions";
 import { getProject } from "../../actions/projectActions";
 import {
   getFeature,
@@ -23,9 +24,9 @@ import DeleteButton from "../utils/DeleteButton";
 
 const Header = styled.div`
   font-size: 16pt;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr minmax(500px, 1fr) 1fr;
   align-items: center;
-  justify-content: space-between;
 `;
 
 const HeaderText = styled.div`
@@ -47,9 +48,10 @@ const ProjectText = styled(Link)`
 
 class Feature extends Component {
   async componentDidMount() {
-    await this.props.getProject(this.props.match.params.projectId);
+    this.props.getProject(this.props.match.params.projectId);
     await this.props.getFeature(this.props.match.params.featureId);
-    await this.props.getComments(this.props.feature._id);
+    this.props.getComments(this.props.feature._id);
+    this.props.fetchOwner(this.props.project._user);
   }
 
   render() {
@@ -83,7 +85,7 @@ class Feature extends Component {
   }
 
   renderHeader() {
-    const { project, feature } = this.props;
+    const { project, feature, owner } = this.props;
     const projectURL = `/p/${this.props.match.params.projectId}`;
 
     return (
@@ -101,7 +103,20 @@ class Feature extends Component {
             <EditButton />
           </Editable>
         </HeaderText>
-        <DeleteButton onClick={this.handleDelete.bind(this)} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center"
+          }}
+        >
+          <div style={{fontSize: "10pt", margin: "0px 3px"}}> 
+          {/*create toggle if owner or not*/}
+            {owner.firstName &&
+              `created by ${owner.firstName} ${owner.lastName}`}
+          </div>
+          <DeleteButton onClick={this.handleDelete.bind(this)} />
+        </div>
       </Header>
     );
   }
@@ -112,17 +127,19 @@ class Feature extends Component {
   }
 }
 
-function mapStateToProps({ projects, features, comments }, ownProps) {
+function mapStateToProps({ projects, features, comments, owner }, ownProps) {
   return {
     project: projects[ownProps.match.params.projectId],
     feature: features[ownProps.match.params.featureId],
-    comments
+    comments,
+    owner
   };
 }
 
 export default connect(
   mapStateToProps,
   {
+    fetchOwner,
     getProject,
     getFeature,
     editFeature,
