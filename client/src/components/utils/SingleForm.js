@@ -69,4 +69,6 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps)(reduxForm()(SingleForm));
+export default connect(mapStateToProps)(
+  reduxForm({ destroyOnUnmount: false })(SingleForm)
+);
