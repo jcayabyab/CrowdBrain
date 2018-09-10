@@ -24,9 +24,7 @@ module.exports = app => {
   });
 
   app.post("/api/comment/new", async (req, res) => {
-    const { featureId, username, body } = req.body;
-
-    const projectId = await Feature.findById(featureId)._project;
+    const { projectId, featureId, username, body } = req.body;
 
     const comment = await new Comment({
       body,
@@ -35,6 +33,8 @@ module.exports = app => {
       _feature: featureId,
       _project: projectId
     }).save();
+
+    console.log(comment);
 
     res.send(comment);
   });

@@ -11,7 +11,7 @@ import {
   deleteFeature,
   wipeFeatures
 } from "../../actions/featureActions";
-import { getComments, wipeComments } from "../../actions/commentActions";
+import { getComments, createComment, wipeComments } from "../../actions/commentActions";
 import LoadingWheel from "../utils/LoadingWheel";
 import Detail from "../utils/Detail";
 import SubtaskList from "./SubtaskList";
@@ -56,7 +56,7 @@ class Feature extends Component {
             <Editable
               style={{ fontWeight: "bold" }}
               object={feature}
-              onSubmit={values => this.props.editFeature(feature._id, values)}
+              onSubmit={values => editFeature(feature._id, values)}
             >
               {feature.title}
               <EditButton />
@@ -71,7 +71,9 @@ class Feature extends Component {
               />
               <hr />
               <div>
-                <CommentForm />
+                <CommentForm
+                  onSubmit={values => this.props.createComment(feature, values)}
+                />
                 <CommentList comments={comments} />
               </div>
             </div>
@@ -109,6 +111,7 @@ export default connect(
     editFeature,
     deleteFeature,
     getComments,
+    createComment,
     wipeFeatures,
     wipeComments
   }

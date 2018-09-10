@@ -22,11 +22,20 @@ export const getComment = commentId => async dispatch => {
   dispatch({ type: UPDATE_COMMENTS, payload: res.data });
 };
 
-export const createComment = (featureId, values) => async dispatch => {
-  /* format reduxform here */
-  const body = { featureId, values };
+export const createComment = (feature, values) => async dispatch => {
+  // values: username, body
+  const projectId = feature._project;
+  const featureId = feature._id;
+  const { username, body } = values;
 
-  const res = await axios.post("/api/feature/new", body);
+  const res = await axios.post("/api/comment/new", {
+    projectId,
+    featureId,
+    username,
+    body
+  });
+
+  console.log(res.data);
 
   dispatch({ type: UPDATE_COMMENTS, payload: res.data });
 };

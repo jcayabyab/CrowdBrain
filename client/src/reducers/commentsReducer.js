@@ -7,12 +7,15 @@ import {
   WIPE_COMMENTS
 } from "../actions/types";
 
-export default function(state = {}, action) {
+export default function(state = null, action) {
   switch (action.type) {
     case GET_COMMENTS:
-      return _.mapKeys(action.payload, "_id");
+      const reversedArray = [...action.payload];
+      reversedArray.sort((a, b) => b.dateCreated - a.dateCreated);
+
+      return _.mapKeys(reversedArray, "_id");
     case UPDATE_COMMENTS: {
-      let newState = { ...state, [action.payload._id]: action.payload };
+      let newState = { [action.payload._id]: action.payload, ...state };
       return newState;
     }
     case DELETE_COMMENT:

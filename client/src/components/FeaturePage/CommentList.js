@@ -1,29 +1,24 @@
-import _ from "lodash";
-import React, { Component } from "react";
+import React from "react";
 
 import LoadingWheel from "../utils/LoadingWheel";
+import List from "../utils/List";
 import CommentListItem from "./CommentListItem";
 
-class CommentList extends Component {
-  renderList() {
-    const { comments } = this.props;
+const CommentList = props => {
+  const { comments } = props;
+  const mapFunction = comment => (
+    <CommentListItem key={comment._id} comment={comment} />
+  );
 
-    if (comments === null) {
-      return <LoadingWheel />;
-    }
-
-    return _.map(comments, comment => (
-      <CommentListItem key={comment._id} comment={comment} />
-    ));
-  }
-
-  render() {
+  if (comments === null) {
     return (
       <div>
-        <div>{this.renderList()}</div>
+        <LoadingWheel />
       </div>
     );
   }
-}
+
+  return <List objects={comments} mapFunction={mapFunction} />;
+};
 
 export default CommentList;

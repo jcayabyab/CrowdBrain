@@ -36,7 +36,9 @@ const PageHeader = props => {
 
   return (
     <Container>
-      <BackButton to={backURL} />
+      <div>
+        <BackButton to={backURL} />
+      </div>
       <HeaderText>{children}</HeaderText>
       <Right>
         {owner._id === user._id ? (
