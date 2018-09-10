@@ -11,7 +11,11 @@ import {
   deleteFeature,
   wipeFeatures
 } from "../../actions/featureActions";
-import { getComments, createComment, wipeComments } from "../../actions/commentActions";
+import {
+  getComments,
+  createComment,
+  wipeComments
+} from "../../actions/commentActions";
 import LoadingWheel from "../utils/LoadingWheel";
 import Detail from "../utils/Detail";
 import SubtaskList from "./SubtaskList";
@@ -74,6 +78,7 @@ class Feature extends Component {
                 <CommentForm
                   onSubmit={values => this.props.createComment(feature, values)}
                 />
+                <hr />
                 <CommentList comments={comments} />
               </div>
             </div>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 
+import FormField from "../utils/FormField";
 import RightAlign from "../utils/RightAlign";
 
 class CommentForm extends Component {
@@ -21,6 +22,7 @@ class CommentForm extends Component {
           type="text"
           className="form-control"
           placeholder="Username"
+          style={{ margin: "5px 0px" }}
         />
         <Field
           name="body"
@@ -28,6 +30,7 @@ class CommentForm extends Component {
           type="text"
           className="form-control"
           placeholder="Body"
+          style={{ margin: "5px 0px" }}
         />
         <RightAlign>
           <button type="submit" className="btn btn-success">
