@@ -9,13 +9,16 @@ class Editable extends Component {
   state = { editing: false, hovered: false };
 
   findEditButton(children) {
+    const {user, owner} = this.props;
+    const isOwner = (user._id === owner._id);
+
     return React.Children.map(children, child => {
       if (!React.isValidElement(child)) {
         return child;
       }
 
       if (child.type === EditButton) {
-        if (this.props.user) {
+        if (isOwner) {
           return React.cloneElement(child, {
             onClick: () => this.setState({ editing: true }),
             visible: this.state.hovered
@@ -84,8 +87,8 @@ class Editable extends Component {
   }
 }
 
-function mapStateToProps({ user }) {
-  return { user };
+function mapStateToProps({ user, owner }) {
+  return { user, owner };
 }
 
 export default connect(mapStateToProps)(Editable);
