@@ -17,12 +17,6 @@ const SingleForm = props => {
     onDelete
   } = props;
 
-  const fieldStyle = { margin: "0px 6px" };
-
-  if (inputType === "textarea") {
-    fieldStyle.height = "150px";
-  }
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -42,8 +36,8 @@ const SingleForm = props => {
         component={FormField}
         inputType={inputType || "input"}
         type="text"
-        style={fieldStyle}
         className="col"
+        style={{padding: "0px"}}
       />
       <button
         className="btn btn-success col-auto"

@@ -11,6 +11,11 @@ const FormField = props => {
     placeholder,
     className
   };
+
+  if (props.inputType === "textarea") {
+    elementProps.style = { height: "150px" };
+  }
+
   delete elementProps.inputType;
 
   return (
