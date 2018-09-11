@@ -10,7 +10,7 @@ class Editable extends Component {
 
   findEditButton(children) {
     const {user, owner} = this.props;
-    const isOwner = (user._id === owner._id);
+    const isOwner = (user._id && user._id === owner._id);
 
     return React.Children.map(children, child => {
       if (!React.isValidElement(child)) {
