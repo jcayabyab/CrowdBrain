@@ -38,6 +38,7 @@ class Project extends Component {
             <Editable
               object={project}
               onSubmit={values => this.props.editProject(project._id, values)}
+              section="title"
             >
               <div style={{ textAlign: "center" }}>
                 {project.title}

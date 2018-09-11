@@ -61,6 +61,7 @@ class Feature extends Component {
               style={{ fontWeight: "bold" }}
               object={feature}
               onSubmit={values => editFeature(feature._id, values)}
+              section="title"
             >
               {feature.title}
               <EditButton />
