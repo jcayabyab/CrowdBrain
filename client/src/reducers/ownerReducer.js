@@ -1,13 +1,7 @@
 import {FETCH_OWNER} from "../actions/types";
+import emptyUser from "../components/utils/emptyUser";
 
-const emptyOwner = {
-  firstName: null,
-  lastName: null,
-  _id: null,
-  userId: null
-}
-
-export default function(state = emptyOwner, action) {
+export default function(state = emptyUser, action) {
   switch(action.type) {
     case FETCH_OWNER:
       return action.payload;
