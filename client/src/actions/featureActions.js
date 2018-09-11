@@ -31,7 +31,6 @@ export const createFeature = projectId => async dispatch => {
 };
 
 export const editFeature = (featureId, values) => async dispatch => {
-  console.log("feature", values);
   const { title, description, dateDue } = values;
 
   const body = { featureId };

@@ -35,8 +35,6 @@ export const createComment = (feature, values) => async dispatch => {
     body
   });
 
-  console.log(res.data);
-
   dispatch({ type: UPDATE_COMMENTS, payload: res.data });
 };
 
