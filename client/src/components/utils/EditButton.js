@@ -4,8 +4,8 @@ import styled from "styled-components";
 const Icon = styled.i`
   font-size: 18pt;
   cursor: pointer;
-  margin: 0px 4px;
-  color: ${props => (props.visible ? "black" : "white")};
+  margin: 0px 6px;
+  color: ${props => (props.visible ? "black" : "#ccc")};
   transition: color 0.1s linear;
 `;
 
