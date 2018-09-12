@@ -17,6 +17,7 @@ const ProjectList = props => {
       description="Create a new project here: "
       createFunction={() => createProject()}
       mapFunction={mapFunction}
+      skipOwner={true}
     />
   );
 };

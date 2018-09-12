@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import AddButton from "./AddButton";
 
 const AddFooter = props => {
-  const { empty, description, onClick, user, owner } = props;
+  const { empty, description, onClick, user, owner, skipOwner } = props;
   const isOwner = user._id && user._id === owner._id;
 
-  if (isOwner) {
+  if (isOwner || skipOwner) {
     return (
       <div
         style={{

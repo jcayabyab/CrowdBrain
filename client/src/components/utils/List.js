@@ -7,7 +7,7 @@ import LoadingWheel from "../utils/LoadingWheel";
 import AddFooter from "../utils/AddFooter";
 
 const List = props => {
-  const { objects, description, createFunction, mapFunction } = props;
+  const { objects, description, createFunction, mapFunction, skipOwner } = props;
 
   if (objects.notLoaded) {
     return (
@@ -25,6 +25,7 @@ const List = props => {
           empty={_.isEmpty(objects)}
           description={description}
           onClick={createFunction}
+          skipOwner={skipOwner}
         />
       )}
     </div>
