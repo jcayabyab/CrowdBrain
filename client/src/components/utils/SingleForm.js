@@ -1,6 +1,9 @@
+import _ from "lodash";
 import React from "react";
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
+
+import FormField from "./FormField";
 
 // expects onSubmit, onCancel, onDelete, and an object to display form for
 
@@ -13,12 +16,6 @@ const SingleForm = props => {
     inputType,
     onDelete
   } = props;
-
-  const fieldStyle = { margin: "0px 6px" };
-
-  if (inputType === "textarea") {
-    fieldStyle.height = "150px";
-  }
 
   return (
     <form
@@ -36,10 +33,11 @@ const SingleForm = props => {
       </button>
       <Field
         name={section || "title"}
-        component={inputType || "input"}
+        component={FormField}
+        inputType={inputType || "input"}
         type="text"
-        className="form-control col"
-        style={fieldStyle}
+        className="col"
+        style={{padding: "0px"}}
       />
       <button
         className="btn btn-success col-auto"
@@ -62,13 +60,25 @@ const SingleForm = props => {
   );
 };
 
+function validate(values) {
+  const errors = {};
+
+  _.forEach(values, (value, key) => {
+    if (value === "") {
+      errors[key] = "Cannot be empty!";
+    }
+  })
+  return errors;
+}
+
 function mapStateToProps(state, ownProps) {
+  
   return {
     initialValues: { ...ownProps.object },
-    form: ownProps.object._id
+    form: `${ownProps.object._id}-${ownProps.section}`
   };
 }
 
 export default connect(mapStateToProps)(
-  reduxForm({ destroyOnUnmount: false })(SingleForm)
+  reduxForm({ validate })(SingleForm)
 );

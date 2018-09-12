@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import EditButton from "../utils/EditButton";
 import Editable from "../utils/Editable";
+import Checkbox from "./Checkbox";
 
 const SubtaskWrapper = styled.div`
   display: flex;
@@ -25,13 +26,7 @@ const SubtaskListItem = ({ subtask, onToggle, onEdit, onDelete }) => (
         <div>{subtask.title}</div>
         <Right>
           <EditButton />
-          <i
-            style={{ fontSize: "18pt", cursor: "pointer" }}
-            className={`far ${
-              subtask.completed ? "fa-check-square" : "fa-square"
-            }`}
-            onClick={onToggle}
-          />
+          <Checkbox onClick={onToggle} completed={subtask.completed} />
         </Right>
       </SubtaskWrapper>
     </Editable>

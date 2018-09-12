@@ -26,7 +26,7 @@ const Nav = styled.nav`
 
 class NavBar extends Component {
   renderLinks() {
-    if (this.props.user === null) {
+    if (!this.props.user._id) {
       return (
         <li className="nav-item" style={{ marginRight: "40px" }}>
           <a>...</a>
@@ -47,30 +47,39 @@ class NavBar extends Component {
   }
 
   renderAuth() {
-    switch (this.props.user) {
-      case null:
-        return (
-          <li className="nav-item" style={{ marginRight: "40px" }}>
-            ...
-          </li>
-        );
-      case false:
-        return (
-          <li className="nav-item">
-            <a className="nav-link" href="/auth/google">
-              Login
-            </a>
-          </li>
-        );
-      default:
-        return (
-          <li className="nav-item">
-            <a className="nav-link" href="/api/logout">
-              Logout
-            </a>
-          </li>
-        );
+    if (!this.props.user) {
+      return (
+        <li className="nav-item">
+          <a className="nav-link" href="/auth/google">
+            Login
+          </a>
+        </li>
+      );
     }
+
+    if (!this.props.user._id) {
+      return (
+        <li className="nav-item" style={{ marginRight: "40px" }}>
+          ...
+        </li>
+      );
+    }
+
+    return (
+      <li
+        className="nav-item"
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "center"
+        }}
+      >
+        <div style={{padding: "0px 20px"}} className="text-muted">{`Hello, ${this.props.user.firstName}`}</div>
+        <a className="nav-link" href="/api/logout">
+          Logout
+        </a>
+      </li>
+    );
   }
 
   render() {

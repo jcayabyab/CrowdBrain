@@ -20,14 +20,24 @@ class App extends Component {
         <BrowserRouter>
           <div className="container">
             <NavBar />
-            <Route exact path="/dashboard" component={Dashboard} />
+            <Route
+              exact
+              path="/dashboard"
+              render={() => {
+                return !this.props.user ? (
+                  <Redirect to="/" />
+                ) : (
+                  <Dashboard />
+                );
+              }}
+            />
             <Route exact path="/p/:projectId" component={Project} />
             <Route exact path="/p/:projectId/:featureId" component={Feature} />
             <Route
               exact
               path="/"
               render={() => {
-                return this.props.user ? (
+                return this.props.user._id ? (
                   <Redirect to="/dashboard" />
                 ) : (
                   <Landing />

@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 const Container = styled.div`
   font-size: 16pt;
   display: grid;
-  grid-template-columns: 1fr minmax(500px, 1fr) 1fr;
+  grid-template-columns: 1fr minmax(80%, 1fr) 1fr;
   align-items: center;
 
   & > * {
@@ -34,10 +34,12 @@ const OwnerText = styled.div`
 const PageHeader = props => {
   const { backURL, children, user, owner, onDeleteClick } = props;
 
+  const to = !user ? "/" : backURL;
+
   return (
     <Container>
       <div>
-        <BackButton to={backURL} />
+        <BackButton to={to} />
       </div>
       <HeaderText>{children}</HeaderText>
       <Right>

@@ -13,24 +13,27 @@ class CommentForm extends Component {
 
   render() {
     const { handleSubmit } = this.props;
+    const fieldStyle = { margin: "5px 0px", padding: "0" };
 
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field
           name="username"
-          component="input"
+          component={FormField}
+          inputType="input"
           type="text"
           className="form-control"
           placeholder="Username"
-          style={{ margin: "5px 0px" }}
+          style={fieldStyle}
         />
         <Field
           name="body"
-          component="textarea"
+          component={FormField}
+          inputType="textarea"
           type="text"
           className="form-control"
           placeholder="Body"
-          style={{ margin: "5px 0px" }}
+          style={fieldStyle}
         />
         <RightAlign>
           <button type="submit" className="btn btn-success">
@@ -43,4 +46,17 @@ class CommentForm extends Component {
   }
 }
 
-export default reduxForm({ form: "newComment" })(CommentForm);
+function validate(values) {
+  const errors = {};
+
+  const FIELDS = ["username", "body"];
+  FIELDS.forEach(name => {
+    if (!values[name]) {
+      errors[name] = `You must enter a ${name}!`;
+    }
+  });
+
+  return errors;
+}
+
+export default reduxForm({ validate, form: "newComment" })(CommentForm);

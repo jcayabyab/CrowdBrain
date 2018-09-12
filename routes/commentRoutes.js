@@ -34,8 +34,6 @@ module.exports = app => {
       _project: projectId
     }).save();
 
-    console.log(comment);
-
     res.send(comment);
   });
 
