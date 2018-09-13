@@ -20,7 +20,7 @@ const SingleForm = props => {
   } = props;
 
   const handleIfDate = () => {
-    return isDate ? (
+    return isDate && section === "dateDue" ? (
       <div className="col" style={{ padding: "0px", maxWidth: "300px" }}>
         <DatePickerField />
       </div>
@@ -85,7 +85,7 @@ function validate(values) {
 
 function mapStateToProps(state, ownProps) {
   return {
-    initialValues: { ...ownProps.object },
+    initialValues: { [ownProps.section]: ownProps.object[ownProps.section] },
     form: `${ownProps.object._id}-${ownProps.section}`
   };
 }

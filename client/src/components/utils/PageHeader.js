@@ -34,12 +34,10 @@ const OwnerText = styled.div`
 const PageHeader = props => {
   const { backURL, children, user, owner, onDeleteClick } = props;
 
-  const to = !user ? "/" : backURL;
-
   return (
     <Container>
       <div>
-        <BackButton to={to} />
+        <BackButton to={backURL} />
       </div>
       <HeaderText>{children}</HeaderText>
       <Right>

@@ -32,10 +32,13 @@ module.exports = app => {
   });
 
   app.post("/api/project/edit", requireLogin, async (req, res) => {
-    const { projectId, title, description, dateDue } = req.body;
+    const { projectId } = req.body;
+
+    const set = {...req.body};
+    delete set.projectId;
 
     await Project.findByIdAndUpdate(projectId, {
-      $set: { title, description, dateDue }
+      $set: set
     });
 
     //returns edited project
