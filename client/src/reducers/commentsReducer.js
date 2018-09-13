@@ -2,6 +2,7 @@ import _ from "lodash";
 
 import {
   GET_COMMENTS,
+  CREATE_COMMENT,
   UPDATE_COMMENTS,
   DELETE_COMMENT,
   WIPE_COMMENTS
@@ -14,8 +15,16 @@ export default function(state = null, action) {
       reversedArray.sort((a, b) => b.dateCreated - a.dateCreated);
 
       return _.mapKeys(reversedArray, "_id");
-    case UPDATE_COMMENTS: {
+    case CREATE_COMMENT: {
       let newState = { [action.payload._id]: action.payload, ...state };
+
+      console.log(newState);
+      return newState;
+    }
+    case UPDATE_COMMENTS: {
+      let newState = { ...state };
+
+      newState[action.payload._id] = action.payload;
       return newState;
     }
     case DELETE_COMMENT:

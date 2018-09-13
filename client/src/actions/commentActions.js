@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   GET_COMMENTS,
   UPDATE_COMMENTS,
+  CREATE_COMMENT,
   DELETE_COMMENT,
   WIPE_COMMENTS
 } from "./types";
@@ -35,7 +36,7 @@ export const createComment = (feature, values) => async dispatch => {
     body
   });
 
-  dispatch({ type: UPDATE_COMMENTS, payload: res.data });
+  dispatch({ type: CREATE_COMMENT, payload: res.data });
 };
 
 export const editComment = (commentId, values) => async dispatch => {
@@ -53,6 +54,13 @@ export const deleteComment = commentId => async dispatch => {
 
   dispatch({ type: DELETE_COMMENT, payload: res.data });
 };
+
+export const approveComment = commentId => async dispatch => {
+  const body = {commentId};
+  const res = await axios.post("/api/comment/approve", body);
+
+  dispatch({type: UPDATE_COMMENTS, payload: res.data})
+}
 
 export function wipeComments() {
   return { type: WIPE_COMMENTS };
