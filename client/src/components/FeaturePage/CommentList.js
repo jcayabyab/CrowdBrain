@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import LoadingWheel from "../utils/LoadingWheel";
 import List from "../utils/List";
@@ -21,4 +22,8 @@ const CommentList = props => {
   return <List objects={comments} mapFunction={mapFunction} />;
 };
 
-export default CommentList;
+function mapStateToProps({ comments }) {
+  return { comments };
+}
+
+export default connect(mapStateToProps)(CommentList);

@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+
+import { approveComment } from "../../actions/commentActions";
+import formatDate from "../../utils/formatDate";
+import ApproveButton from "./ApproveButton";
 
 const Comment = styled.div`
-  flex-direction: column;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Header = styled.div`
@@ -27,22 +35,33 @@ const Body = styled.div`
 
 class CommentListItem extends Component {
   render() {
-    const { comment } = this.props;
+    const { comment, user, owner, approveComment } = this.props;
 
     return (
       <Comment className="list-group-item">
-        <Header>
-          <HeaderLeft>
-            <Username>{comment.username}</Username>
-            <div style={{ margin: "0px 5px" }}>|</div>
-            <div>3 days ago</div>
-          </HeaderLeft>
-          <div>{comment.approved && `Approved`}</div>
-        </Header>
-        <Body>{comment.body}</Body>
+        <div>
+          <Header>
+            <HeaderLeft>
+              <Username>{comment.username}</Username>
+              <div style={{ margin: "0px 5px" }}>|</div>
+              <div>{formatDate(comment.dateCreated)}</div>
+            </HeaderLeft>
+          </Header>
+          <Body>{comment.body}</Body>
+        </div>
+        <ApproveButton
+          approved={comment.approved}
+          clickable={user._id && user._id === owner._id}
+          onClick={() => approveComment(comment._id)}
+        />
       </Comment>
     );
   }
 }
 
-export default CommentListItem;
+const mapStateToProps = ({ user, owner }) => ({ user, owner });
+
+export default connect(
+  mapStateToProps,
+  { approveComment }
+)(CommentListItem);
