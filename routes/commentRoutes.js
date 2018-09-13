@@ -58,8 +58,7 @@ module.exports = app => {
 
   app.post("/api/comment/approve", requireLogin, async (req, res) => {
     // gets comment from req
-    const { approved } = req.body;
-    const commentId = req.body._id;
+    const commentId = req.body.commentId;
 
     const comment = await Comment.findById(commentId);
 
