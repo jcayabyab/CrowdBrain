@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 
 import { getProjects, wipeProjects } from "../../actions/projectActions";
 import ProjectList from "./ProjectList";
-import ActivityFeed from "./ActivityFeed";
 import Guide from "./Guide";
 import styled from "styled-components";
 
