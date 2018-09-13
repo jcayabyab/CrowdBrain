@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getProjects, wipeProjects } from "../../actions/projectActions";
 import ProjectList from "./ProjectList";
 import ActivityFeed from "./ActivityFeed";
+import Guide from "./Guide";
 import styled from "styled-components";
 
 const ProjectHeader = styled.div`
@@ -26,7 +27,7 @@ class Dashboard extends Component {
           <ProjectList />
         </div>
         <div className="col-md-7 col-sm-12">
-          <ActivityFeed />
+          <Guide />
         </div>
       </div>
     );
