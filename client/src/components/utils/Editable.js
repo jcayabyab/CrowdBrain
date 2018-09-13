@@ -55,7 +55,7 @@ class Editable extends Component {
   }
 
   renderForm() {
-    const { onDelete, object, section, inputType } = this.props;
+    const { onDelete, object, section, inputType, isDate } = this.props;
 
     return (
       <SingleForm
@@ -65,6 +65,7 @@ class Editable extends Component {
         object={object}
         section={section}
         inputType={inputType}
+        isDate={isDate}
       />
     );
   }

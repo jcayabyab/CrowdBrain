@@ -16,16 +16,16 @@ export default date => {
 
   const dateObj = new Date(date);
   function day() {
-    if (dateObj.getUTCDate() > 10 && dateObj.getUTCDate() < 20) {
-      return `${dateObj.getUTCDate()}th`;
+    if (dateObj.getDate() > 10 && dateObj.getDate() < 20) {
+      return `${dateObj.getDate()}th`;
     }
-    switch(dateObj.getUTCDate() % 10) {
-      case 1: return `${dateObj.getUTCDate()}st`;
-      case 2: return `${dateObj.getUTCDate()}nd`;
-      case 3: return `${dateObj.getUTCDate()}rd`;
-      default: return `${dateObj.getUTCDate()}th`;
+    switch(dateObj.getDate() % 10) {
+      case 1: return `${dateObj.getDate()}st`;
+      case 2: return `${dateObj.getDate()}nd`;
+      case 3: return `${dateObj.getDate()}rd`;
+      default: return `${dateObj.getDate()}th`;
     }
   }
 
-  return `${MONTHS[dateObj.getUTCMonth()]} ${day()}, ${dateObj.getUTCFullYear()}`;
+  return `${MONTHS[dateObj.getMonth()]} ${day()}, ${dateObj.getFullYear()}`;
 };

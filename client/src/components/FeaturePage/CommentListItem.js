@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 
 import { approveComment } from "../../actions/commentActions";
-import formatDate from "../../utils/formatDate";
+import formatTimeElapsed from "../../utils/formatTimeElapsed";
 import ApproveButton from "./ApproveButton";
 
 const Comment = styled.div`
@@ -44,7 +44,7 @@ class CommentListItem extends Component {
             <HeaderLeft>
               <Username>{comment.username}</Username>
               <div style={{ margin: "0px 5px" }}>|</div>
-              <div>{formatDate(comment.dateCreated)}</div>
+              <div>{formatTimeElapsed(comment.dateCreated)}</div>
             </HeaderLeft>
           </Header>
           <Body>{comment.body}</Body>

@@ -41,7 +41,7 @@ export const editFeature = (featureId, values) => async dispatch => {
     body.description = description;
   }
   if (dateDue) {
-    body.dateDue = dateDue;
+    body.dateDue = dateDue.getTime();
   }
 
   const res = await axios.post("/api/feature/edit", body);

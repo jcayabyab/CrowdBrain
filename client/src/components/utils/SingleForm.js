@@ -3,6 +3,7 @@ import React from "react";
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
 
+import DatePickerField from "./DatePickerField";
 import FormField from "./FormField";
 
 // expects onSubmit, onCancel, onDelete, and an object to display form for
@@ -14,8 +15,26 @@ const SingleForm = props => {
     onCancel,
     section,
     inputType,
-    onDelete
+    onDelete,
+    isDate
   } = props;
+
+  const handleIfDate = () => {
+    return isDate ? (
+      <div className="col" style={{ padding: "0px", maxWidth: "300px" }}>
+        <DatePickerField />
+      </div>
+    ) : (
+      <Field
+        name={section || "title"}
+        component={FormField}
+        inputType={inputType || "input"}
+        type="text"
+        className="col"
+        style={{ padding: "0px" }}
+      />
+    );
+  };
 
   return (
     <form
@@ -31,14 +50,7 @@ const SingleForm = props => {
       >
         <i className="fas fa-ban" />
       </button>
-      <Field
-        name={section || "title"}
-        component={FormField}
-        inputType={inputType || "input"}
-        type="text"
-        className="col"
-        style={{padding: "0px"}}
-      />
+      {handleIfDate()}
       <button
         className="btn btn-success col-auto"
         type="submit"
@@ -67,18 +79,15 @@ function validate(values) {
     if (value === "") {
       errors[key] = "Cannot be empty!";
     }
-  })
+  });
   return errors;
 }
 
 function mapStateToProps(state, ownProps) {
-  
   return {
     initialValues: { ...ownProps.object },
     form: `${ownProps.object._id}-${ownProps.section}`
   };
 }
 
-export default connect(mapStateToProps)(
-  reduxForm({ validate })(SingleForm)
-);
+export default connect(mapStateToProps)(reduxForm({ validate })(SingleForm));

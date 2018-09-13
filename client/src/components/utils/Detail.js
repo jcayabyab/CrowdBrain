@@ -38,6 +38,7 @@ const Detail = ({ object, onSubmit }) => (
         object={object}
         section="dateDue"
         onSubmit={values => onSubmit(values)}
+        isDate={true}
       >
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <EditButton />
