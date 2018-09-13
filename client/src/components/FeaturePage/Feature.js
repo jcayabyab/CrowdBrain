@@ -45,7 +45,7 @@ class Feature extends Component {
   }
 
   render() {
-    const { project, feature, comments, editFeature } = this.props;
+    const { project, feature, editFeature } = this.props;
     const projectURL = `/p/${this.props.match.params.projectId}`;
 
     if (project && feature) {
@@ -80,7 +80,7 @@ class Feature extends Component {
                   onSubmit={values => this.props.createComment(feature, values)}
                 />
                 <hr />
-                <CommentList comments={comments} />
+                <CommentList />
               </div>
             </div>
             <div className="col-md-5 col-sm-12">
@@ -103,7 +103,6 @@ function mapStateToProps({ projects, features, comments, owner }, ownProps) {
   return {
     project: projects[ownProps.match.params.projectId],
     feature: features[ownProps.match.params.featureId],
-    comments,
     owner
   };
 }
