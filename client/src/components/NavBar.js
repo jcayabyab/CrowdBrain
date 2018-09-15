@@ -24,8 +24,17 @@ const Nav = styled.nav`
   }
 `;
 
+const Brand = styled(Link)`
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+`;
+
 class NavBar extends Component {
   renderLinks() {
+    if(!this.props.user) {
+      return null;
+    }
+
     if (!this.props.user._id) {
       return (
         <li className="nav-item" style={{ marginRight: "40px" }}>
@@ -36,7 +45,7 @@ class NavBar extends Component {
 
     const LINKS = this.props.user
       ? [
-          // { name: "Dashboard", path: "/dashboard" },
+          { name: "Dashboard", path: "/dashboard" }
           // { name: "Profile", path: "/profile" }
         ]
       : [];
@@ -74,7 +83,9 @@ class NavBar extends Component {
           alignItems: "center"
         }}
       >
-        <div style={{padding: "0px 20px"}} className="text-muted">{`Hello, ${this.props.user.firstName}`}</div>
+        <div style={{ padding: "0px 20px" }} className="text-muted">{`Hello, ${
+          this.props.user.firstName
+        }`}</div>
         <a className="nav-link" href="/api/logout">
           Logout
         </a>
@@ -86,12 +97,12 @@ class NavBar extends Component {
     // Bootstrap code
     return (
       <Nav className="navbar navbar-expand-md navbar-light bg-light">
-        <Link
-          to={this.props.user ? "/dashboard" : "/"}
+        <Brand
+          to="/"
           className="navbar-brand"
         >
           CrowdBrain
-        </Link>
+        </Brand>
         <button
           className="navbar-toggler"
           type="button"

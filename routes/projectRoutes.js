@@ -11,6 +11,12 @@ module.exports = app => {
     res.send(projects);
   });
 
+  app.get("/api/projects/main", async (req, res) => {
+    const projects = await Project.find().sort({dateCreated: -1}).limit(10);
+
+    res.send(projects);
+  })
+
   app.post("/api/project", async (req, res) => {
     const { projectId } = req.body;
 
