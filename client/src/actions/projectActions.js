@@ -1,16 +1,18 @@
 import axios from "axios";
 import {
   GET_PROJECTS,
+  GET_COUNT,
   UPDATE_PROJECTS,
   DELETE_PROJECT,
   WIPE_PROJECTS
 } from "./types";
 
-export const getAllProjects = page => async dispatch => {
-  const body = { page };
+export const getAllProjects = (page, projectsPerPage) => async dispatch => {
+  const body = { page, projectsPerPage };
   const res = await axios.post("/api/projects/main", body);
 
-  dispatch({ type: GET_PROJECTS, payload: res.data });
+  dispatch({ type: GET_PROJECTS, payload: res.data.projects });
+  dispatch({ type: GET_COUNT, payload: res.data.count });
 };
 
 export const getProjects = () => async dispatch => {

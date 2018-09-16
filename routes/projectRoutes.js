@@ -14,16 +14,17 @@ module.exports = app => {
   });
 
   app.post("/api/projects/main", async (req, res) => {
-    const { page } = req.body;
-    const projectsPerPage = 10;
+    const { page, projectsPerPage } = req.body;
 
     const projects = await Project.find()
       .skip((page - 1) * projectsPerPage)
       .populate("_user")
       .sort({ dateCreated: -1 })
-      .limit(10);
+      .limit(projectsPerPage);
 
-    res.send(projects);
+    const count = await Project.countDocuments();
+
+    res.send({projects, count});
   });
 
   app.post("/api/project", async (req, res) => {

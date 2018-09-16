@@ -11,7 +11,7 @@ class Landing extends Component {
         </div>
         <div>
           <h3>Browse projects:</h3>
-          <hr style={{ margin: "0" }} />
+          <hr style={{ marginTop: "0", marginBottom: "10px" }} />
           <LandingList />
         </div>
       </div>

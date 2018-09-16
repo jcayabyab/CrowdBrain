@@ -16,3 +16,5 @@ export const CREATE_COMMENT = "CREATE_COMMENT";
 export const UPDATE_COMMENTS = "UPDATE_COMMENTS";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 export const WIPE_COMMENTS = "WIPE_COMMENTS";
+
+export const GET_COUNT = "GET_COUNT";

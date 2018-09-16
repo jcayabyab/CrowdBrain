@@ -4,6 +4,7 @@ import ownerReducer from "./ownerReducer";
 import projectsReducer from "./projectsReducer";
 import featuresReducer from "./featuresReducer";
 import commentsReducer from "./commentsReducer";
+import countReducer from "./countReducer";
 import {reducer as formReducer} from "redux-form";
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
   owner: ownerReducer,
   projects: projectsReducer,
   features: featuresReducer,
-  comments: commentsReducer
+  comments: commentsReducer,
+  count: countReducer
 });
