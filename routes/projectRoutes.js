@@ -16,13 +16,13 @@ module.exports = app => {
   app.post("/api/projects/main", async (req, res) => {
     const { page, projectsPerPage } = req.body;
 
-    const projects = await Project.find()
+    const projects = await Project.find({title: {"$ne": "New Project"}})
       .skip((page - 1) * projectsPerPage)
       .populate("_user")
       .sort({ dateCreated: -1 })
       .limit(projectsPerPage);
 
-    const count = await Project.countDocuments();
+    const count = await Project.countDocuments({title: {"$ne": "New Project"}});
 
     res.send({projects, count});
   });
