@@ -18,7 +18,6 @@ export default function(state = null, action) {
     case CREATE_COMMENT: {
       let newState = { [action.payload._id]: action.payload, ...state };
 
-      console.log(newState);
       return newState;
     }
     case UPDATE_COMMENTS: {

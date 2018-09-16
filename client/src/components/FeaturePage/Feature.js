@@ -101,8 +101,8 @@ class Feature extends Component {
 
 function mapStateToProps({ projects, features, comments, owner }, ownProps) {
   return {
-    project: projects[ownProps.match.params.projectId],
-    feature: features[ownProps.match.params.featureId],
+    project: projects ? projects[ownProps.match.params.projectId] : null,
+    feature: features ? features[ownProps.match.params.featureId] : null,
     owner
   };
 }

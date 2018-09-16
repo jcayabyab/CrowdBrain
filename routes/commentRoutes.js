@@ -2,14 +2,13 @@ const mongoose = require("mongoose");
 const requireLogin = require("../middlewares/requireLogin");
 
 const Comment = mongoose.model("comments");
-const Feature = mongoose.model("features");
 
 module.exports = app => {
   app.post("/api/comments/", async (req, res) => {
     const { featureId } = req.body;
 
     try {
-      const comments = await Comment.find({ _feature: featureId });
+      const comments = await Comment.find({ _feature: featureId }).sort({dateCreated: -1});
       res.send(comments);
     } catch (err) {
       res.send(err);

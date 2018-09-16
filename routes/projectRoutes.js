@@ -7,20 +7,29 @@ const Comment = mongoose.model("comments");
 
 module.exports = app => {
   app.get("/api/projects/", async (req, res) => {
-    const projects = await Project.find({ _user: req.user.id });
+    const projects = await Project.find({ _user: req.user.id }).populate(
+      "_user"
+    );
     res.send(projects);
   });
 
-  app.get("/api/projects/main", async (req, res) => {
-    const projects = await Project.find().sort({dateCreated: -1}).limit(10);
+  app.post("/api/projects/main", async (req, res) => {
+    const { page } = req.body;
+    const projectsPerPage = 10;
+
+    const projects = await Project.find()
+      .skip((page - 1) * projectsPerPage)
+      .populate("_user")
+      .sort({ dateCreated: -1 })
+      .limit(10);
 
     res.send(projects);
-  })
+  });
 
   app.post("/api/project", async (req, res) => {
     const { projectId } = req.body;
 
-    const project = await Project.findById(projectId);
+    const project = await Project.findById(projectId).populate("_user");
 
     res.send(project);
   });
@@ -40,7 +49,7 @@ module.exports = app => {
   app.post("/api/project/edit", requireLogin, async (req, res) => {
     const { projectId } = req.body;
 
-    const set = {...req.body};
+    const set = { ...req.body };
     delete set.projectId;
 
     await Project.findByIdAndUpdate(projectId, {
@@ -55,8 +64,8 @@ module.exports = app => {
 
   app.post("/api/project/delete", requireLogin, async (req, res) => {
     const { projectId } = req.body;
-    await Feature.deleteMany({_project: projectId});
-    await Comment.deleteMany({_project: projectId});
+    await Feature.deleteMany({ _project: projectId });
+    await Comment.deleteMany({ _project: projectId });
 
     const project = await Project.findByIdAndDelete(projectId);
 

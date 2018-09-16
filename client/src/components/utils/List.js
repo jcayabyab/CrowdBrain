@@ -9,7 +9,7 @@ import AddFooter from "../utils/AddFooter";
 const List = props => {
   const { objects, description, createFunction, mapFunction, skipOwner } = props;
 
-  if (objects.notLoaded) {
+  if (objects === null) {
     return (
       <div>
         <LoadingWheel />

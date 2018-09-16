@@ -6,6 +6,13 @@ import {
   WIPE_PROJECTS
 } from "./types";
 
+export const getAllProjects = page => async dispatch => {
+  const body = { page };
+  const res = await axios.post("/api/projects/main", body);
+
+  dispatch({ type: GET_PROJECTS, payload: res.data });
+};
+
 export const getProjects = () => async dispatch => {
   const res = await axios.get("/api/projects");
 
@@ -38,7 +45,7 @@ export const editProject = (projectId, values) => async dispatch => {
   if (dateDue) {
     body.dateDue = dateDue.getTime();
   }
-  
+
   const res = await axios.post("/api/project/edit", body);
 
   dispatch({ type: UPDATE_PROJECTS, payload: res.data });

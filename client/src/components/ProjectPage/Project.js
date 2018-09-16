@@ -22,7 +22,7 @@ class Project extends Component {
     this.props.wipeComments();
     await this.props.getProject(this.props.match.params.projectId);
     this.props.getFeatures(this.props.match.params.projectId);
-    this.props.fetchOwner(this.props.project._user);
+    this.props.fetchOwner(this.props.project._user._id);
   }
 
   render() {
@@ -74,7 +74,7 @@ class Project extends Component {
 
 function mapStateToProps({ projects, owner }, ownProps) {
   return {
-    project: projects[ownProps.match.params.projectId],
+    project: projects ? projects[ownProps.match.params.projectId] : null,
     owner
   };
 }
