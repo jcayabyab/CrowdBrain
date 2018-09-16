@@ -11,8 +11,7 @@ const ProjectLink = styled(Link)`
   background-color: white;
   transition: background-color 0.15s linear;
 
-  &:hover,
-  &:link {
+  &:hover {
     text-decoration: none;
     color: inherit;
     background-color: #f0f0f0;
@@ -60,7 +59,7 @@ const LandingListItem = ({ project }) => {
               project._user.lastName
             }`}</Owner>
           </Left>
-          <Time>Created {formatTimeElapsed(project.dateCreated)}</Time>
+          <Time>Created: {formatTimeElapsed(project.dateCreated)}</Time>
         </Header>
         <div>{project.description}</div>
       </Main>

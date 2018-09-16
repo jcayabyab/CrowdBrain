@@ -25,7 +25,6 @@ const Number = styled.div`
 
 class PageScroll extends Component {
   render() {
-    console.log(this.props);
     return (
       <CenterAlign>
         <Button
@@ -42,7 +41,7 @@ class PageScroll extends Component {
   }
 
   renderNumbers() {
-    console.log(this.props.pages)
+    console.log(this.props.pages);
     const numbers = [];
     const bold = { fontWeight: "bold" };
     for (let i = 1; i <= this.props.pages; i++) {
