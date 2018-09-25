@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 const Container = styled.div`
   font-size: 16pt;
   display: grid;
-  grid-template-columns: 1fr minmax(80%, 1fr) 1fr;
+  grid-template-columns: 1fr minmax(60%, 1fr) 1fr;
   align-items: center;
 
   & > * {

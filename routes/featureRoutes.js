@@ -8,7 +8,10 @@ module.exports = app => {
   app.post("/api/features/", async (req, res) => {
     const { projectId } = req.body;
 
-    const features = await Feature.find({ _project: projectId });
+    const features = await Feature.find({ _project: projectId }).populate(
+      "_user",
+      "_id firstName lastName"
+    );
     res.send(features);
   });
 
@@ -16,7 +19,10 @@ module.exports = app => {
     const { featureId } = req.body;
 
     try {
-      const feature = await Feature.findById(featureId);
+      const feature = await Feature.findById(featureId).populate(
+        "_user",
+        "_id firstName lastName"
+      );
       res.send(feature);
     } catch (err) {
       res.send("Error");
@@ -33,7 +39,9 @@ module.exports = app => {
       dateDue: new Date().getTime(),
       _project: projectId,
       _user: req.user
-    }).save();
+    })
+      .save()
+      .populate("_user", "_id firstName lastName");
 
     res.send(feature);
   });
@@ -49,7 +57,10 @@ module.exports = app => {
     });
 
     //returns edited feature
-    const feature = await Feature.findById(featureId);
+    const feature = await Feature.findById(featureId).populate(
+      "_user",
+      "_id firstName lastName"
+    );
 
     res.send(feature);
   });
