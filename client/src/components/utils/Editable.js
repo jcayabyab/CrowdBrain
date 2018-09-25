@@ -8,9 +8,16 @@ import { connect } from "react-redux";
 class Editable extends Component {
   state = { editing: false, hovered: false };
 
+  componentDidMount() {
+    const { object, section, defaultTitle } = this.props;
+    if (object[section] === defaultTitle) {
+      this.setState({ editing: true });
+    }
+  }
+
   findEditButton(children) {
-    const {user, owner} = this.props;
-    const isOwner = (user._id && user._id === owner._id);
+    const { user, owner } = this.props;
+    const isOwner = user._id && user._id === owner._id;
 
     return React.Children.map(children, child => {
       if (!React.isValidElement(child)) {

@@ -23,6 +23,7 @@ const Detail = ({ object, onSubmit }) => (
       section="description"
       inputType="textarea"
       onSubmit={values => onSubmit(values)}
+      defaultTitle="Write a new description here!"
     >
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Body>{object.description}</Body>

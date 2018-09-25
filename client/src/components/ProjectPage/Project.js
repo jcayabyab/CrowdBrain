@@ -39,6 +39,7 @@ class Project extends Component {
               object={project}
               onSubmit={values => this.props.editProject(project._id, values)}
               section="title"
+              defaultTitle="New Project"
             >
               <div style={{ textAlign: "center" }}>
                 {project.title}

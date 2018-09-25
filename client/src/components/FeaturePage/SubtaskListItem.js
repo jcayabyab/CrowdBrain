@@ -22,6 +22,7 @@ const SubtaskListItem = ({ subtask, onToggle, onEdit, onDelete }) => (
       onSubmit={values => onEdit(values)}
       object={subtask}
       section="title"
+      defaultTitle="New Subtask"
     >
       <SubtaskWrapper>
         <div>{subtask.title}</div>

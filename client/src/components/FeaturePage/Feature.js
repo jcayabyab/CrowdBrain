@@ -62,6 +62,7 @@ class Feature extends Component {
               object={feature}
               onSubmit={values => editFeature(feature._id, values)}
               section="title"
+              defaultTitle="New Feature"
             >
               {feature.title}
               <EditButton />

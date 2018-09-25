@@ -28,7 +28,7 @@ module.exports = app => {
 
     const feature = await new Feature({
       title: "New Feature",
-      description: "Write description here",
+      description: "Write a new description here!",
       dateCreated: new Date().getTime(),
       dateDue: new Date().getTime(),
       _project: projectId,
