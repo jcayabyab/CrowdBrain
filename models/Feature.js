@@ -12,10 +12,14 @@ const featureSchema = new Schema({
   _user: { type: Schema.Types.ObjectId, ref: "users" }
 });
 
-featureSchema.virtual("completed").get(() => {
-  return (
-    this.subtasks.filter(subtask => subtask.completed === false).length === 0
-  );
+featureSchema.set("toObject", { virtuals: true });
+featureSchema.set("toJSON", { virtuals: true });
+
+featureSchema.virtual("completed").get(function() {
+  if(this.subtasks) {
+    return this.subtasks.filter(subtask => subtask.completed === false).length === 0;
+  }
+  return false;
 });
 
 mongoose.model("features", featureSchema);

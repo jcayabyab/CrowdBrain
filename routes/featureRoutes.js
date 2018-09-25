@@ -19,7 +19,7 @@ module.exports = app => {
       const feature = await Feature.findById(featureId);
       res.send(feature);
     } catch (err) {
-      res.send(err);
+      res.send("Error");
     }
   });
 
