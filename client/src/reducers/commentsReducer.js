@@ -29,7 +29,7 @@ export default function(state = null, action) {
     case DELETE_COMMENT:
       return _.filter(state, { _id: !action.payload._id });
     case WIPE_COMMENTS:
-      return {};
+      return null;
     default:
       return state;
   }

@@ -34,6 +34,7 @@ class Project extends Component {
           <PageHeader
             backURL="/dashboard"
             onDeleteClick={this.handleDelete.bind(this)}
+            owner={project._user}
           >
             <Editable
               object={project}

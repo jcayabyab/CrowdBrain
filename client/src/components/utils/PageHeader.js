@@ -55,8 +55,8 @@ const PageHeader = props => {
   );
 };
 
-function mapStateToProps({ user, owner }) {
-  return { user, owner };
+function mapStateToProps({ user }) {
+  return { user };
 }
 
 export default connect(mapStateToProps)(PageHeader);

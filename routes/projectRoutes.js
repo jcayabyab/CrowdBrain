@@ -49,10 +49,7 @@ module.exports = app => {
       dateCreated: new Date().getTime(),
       dateDue: new Date().getTime(),
       _user: req.user.id
-    }).save().populate(
-      "_user",
-      "_id firstName lastName"
-    );
+    }).save();
 
     res.send(project);
   });

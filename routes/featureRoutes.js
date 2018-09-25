@@ -8,10 +8,9 @@ module.exports = app => {
   app.post("/api/features/", async (req, res) => {
     const { projectId } = req.body;
 
-    const features = await Feature.find({ _project: projectId }).populate(
-      "_user",
-      "_id firstName lastName"
-    );
+    const features = await Feature.find({ _project: projectId })
+      .populate("_user", "_id firstName lastName")
+      .populate("_project", "_id title");
     res.send(features);
   });
 
@@ -19,10 +18,9 @@ module.exports = app => {
     const { featureId } = req.body;
 
     try {
-      const feature = await Feature.findById(featureId).populate(
-        "_user",
-        "_id firstName lastName"
-      );
+      const feature = await Feature.findById(featureId)
+        .populate("_user", "_id firstName lastName")
+        .populate("_project", "_id title");
       res.send(feature);
     } catch (err) {
       res.send("Error");
@@ -40,8 +38,7 @@ module.exports = app => {
       _project: projectId,
       _user: req.user
     })
-      .save()
-      .populate("_user", "_id firstName lastName");
+      .save();
 
     res.send(feature);
   });
@@ -57,10 +54,9 @@ module.exports = app => {
     });
 
     //returns edited feature
-    const feature = await Feature.findById(featureId).populate(
-      "_user",
-      "_id firstName lastName"
-    );
+    const feature = await Feature.findById(featureId)
+      .populate("_user", "_id firstName lastName")
+      .populate("_project", "_id title");
 
     res.send(feature);
   });
