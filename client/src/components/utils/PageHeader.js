@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import BackButton from "./BackButton";
 import DeleteButton from "./DeleteButton";
+import Dropdown from "./Dropdown";
 import { connect } from "react-redux";
 
 const Container = styled.div`
@@ -42,7 +43,10 @@ const PageHeader = props => {
       <HeaderText>{children}</HeaderText>
       <Right>
         {owner._id === user._id ? (
-          <DeleteButton onClick={onDeleteClick} />
+          <div>
+            <DeleteButton onClick={onDeleteClick} />
+            <Dropdown list={[{ title: "hi" }]} />
+          </div>
         ) : (
           owner.firstName && (
             <OwnerText>

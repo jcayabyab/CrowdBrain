@@ -35,6 +35,7 @@
     "nodemon": "^1.18.3",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^1.0.0",
+    "react-onclickoutside": "^6.7.1",
     "react-widgets": "^4.4.4",
     "react-widgets-moment": "^4.0.20",
     "redux-form": "^7.4.2",

@@ -7,7 +7,9 @@ module.exports = app => {
   app.post("/api/feature/subtask/new", requireLogin, async (req, res) => {
     const { featureId } = req.body;
 
-    const feature = await Feature.findById(featureId);
+    const feature = await Feature.findById(featureId)
+      .populate("_user", "_id firstName lastName")
+      .populate("_project", "_id title");
     feature.subtasks.push({ title: "New Subtask" });
     feature.save();
 
@@ -22,13 +24,15 @@ module.exports = app => {
       { _id: featureId, "subtasks._id": subtaskId },
       {
         $set: {
-          "subtasks.$.title": title,
+          "subtasks.$.title": title
           // "subtasks.$.dateDue": dateDue
         }
       }
     );
 
-    const feature = await Feature.findById(featureId);
+    const feature = await Feature.findById(featureId)
+      .populate("_user", "_id firstName lastName")
+      .populate("_project", "_id title");
 
     res.send(feature);
   });
@@ -36,7 +40,9 @@ module.exports = app => {
   app.post("/api/feature/subtask/delete", requireLogin, async (req, res) => {
     const { featureId, subtaskId } = req.body;
 
-    const feature = await Feature.findById(featureId);
+    const feature = await Feature.findById(featureId)
+      .populate("_user", "_id firstName lastName")
+      .populate("_project", "_id title");
     await feature.subtasks.id(subtaskId).remove();
     await feature.save();
 
@@ -47,7 +53,9 @@ module.exports = app => {
     // handle formatting on front-end action creator
     const { featureId, subtaskId } = req.body;
 
-    const feature = await Feature.findOne({ _id: featureId });
+    const feature = await Feature.findOne({ _id: featureId })
+      .populate("_user", "_id firstName lastName")
+      .populate("_project", "_id title");
     const subtask = feature.subtasks.id(subtaskId);
 
     subtask.completed = !subtask.completed;
