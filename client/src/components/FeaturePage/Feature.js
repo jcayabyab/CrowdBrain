@@ -10,10 +10,7 @@ import {
   editFeature,
   deleteFeature
 } from "../../actions/featureActions";
-import {
-  getComments,
-  createComment
-} from "../../actions/commentActions";
+import { getComments, createComment } from "../../actions/commentActions";
 import LoadingWheel from "../utils/LoadingWheel";
 import Detail from "../utils/Detail";
 import SubtaskList from "./SubtaskList";
@@ -47,13 +44,23 @@ class Feature extends Component {
 
     if (feature) {
       const project = feature._project;
+      const list = [
+        // for dropdown
+        {
+          title: `Mark as ${project.completed ? "not " : ""}completed`,
+          function: () =>
+            editFeature(feature._id, { completed: !project.completed })
+        },
+        { title: `Delete`, function: this.handleDelete.bind(this) }
+      ];
 
       return (
         <div>
           <PageHeader
             backURL={projectURL}
-            onDeleteClick={this.handleDelete.bind(this)}
+            list={list}
             owner={feature._user}
+            object={feature}
           >
             <ProjectText to={projectURL}>{project.title}</ProjectText>
             <i className="fas fa-caret-right" style={{ margin: "0px 15px" }} />

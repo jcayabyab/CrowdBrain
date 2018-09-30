@@ -35,7 +35,7 @@ export const createProject = values => async dispatch => {
 };
 
 export const editProject = (projectId, values) => async dispatch => {
-  const { title, description, dateDue } = values;
+  const { title, description, dateDue, completed, isPrivate } = values;
   const body = { projectId };
 
   if (title) {
@@ -46,6 +46,12 @@ export const editProject = (projectId, values) => async dispatch => {
   }
   if (dateDue) {
     body.dateDue = dateDue.getTime();
+  }
+  if (typeof completed !== "undefined") {
+    body.completed = completed;
+  }
+  if (typeof isPrivate !== "undefined") {
+    body.isPrivate = isPrivate;
   }
 
   const res = await axios.post("/api/project/edit", body);

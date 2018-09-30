@@ -17,7 +17,10 @@ module.exports = app => {
   app.post("/api/projects/main", async (req, res) => {
     const { page, projectsPerPage } = req.body;
 
-    const projects = await Project.find({ title: { $ne: "New Project" } })
+    const projects = await Project.find({
+      title: { $ne: "New Project" },
+      $or: [{ isPrivate: false }, { isPrivate: { $exists: false } }] // compatability for older projects
+    })
       .skip((page - 1) * projectsPerPage)
       .populate("_user", "_id firstName lastName")
       .sort({ dateCreated: -1 })
@@ -57,7 +60,7 @@ module.exports = app => {
     const { projectId } = req.body;
 
     const set = { ...req.body };
-    delete set.projectId;
+    delete set.projectId; // don't want to mutate req.body
 
     await Project.findByIdAndUpdate(projectId, {
       $set: set

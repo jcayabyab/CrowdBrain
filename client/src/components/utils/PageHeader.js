@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 import BackButton from "./BackButton";
-import DeleteButton from "./DeleteButton";
 import Dropdown from "./Dropdown";
 import { connect } from "react-redux";
 
@@ -33,7 +32,7 @@ const OwnerText = styled.div`
 `;
 
 const PageHeader = props => {
-  const { backURL, children, user, owner, onDeleteClick } = props;
+  const { backURL, children, user, owner, list } = props;
 
   return (
     <Container>
@@ -43,16 +42,11 @@ const PageHeader = props => {
       <HeaderText>{children}</HeaderText>
       <Right>
         {owner._id === user._id ? (
-          <div>
-            <DeleteButton onClick={onDeleteClick} />
-            <Dropdown list={[{ title: "hi" }]} />
-          </div>
+          <Dropdown list={list} />
         ) : (
-          owner.firstName && (
-            <OwnerText>
-              {`created by ${owner.firstName} ${owner.lastName}`}
-            </OwnerText>
-          )
+          <OwnerText>
+            {`created by ${owner.firstName} ${owner.lastName}`}
+          </OwnerText>
         )}
       </Right>
     </Container>

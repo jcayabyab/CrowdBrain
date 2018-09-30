@@ -47,7 +47,7 @@ module.exports = app => {
     const { featureId } = req.body;
 
     const set = { ...req.body };
-    delete set.featureId;
+    delete set.featureId; // don't want to mutate req.body
 
     await Feature.findByIdAndUpdate(featureId, {
       $set: set

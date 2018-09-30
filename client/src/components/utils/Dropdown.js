@@ -63,7 +63,7 @@ const List = styled.div`
   left: 0;
   z-index: 1000;
   float: left;
-  min-width: 10rem;
+  width: 100%;
   padding: 0.5rem 0;
   margin: 0.125rem 0 0;
   font-size: 1rem;
@@ -107,7 +107,7 @@ class Dropdown extends Component {
     super(props);
     this.state = {
       isOpen: false,
-      width: "160px",
+      width: "250px",
       headerColor: {
         // optional, defaults to blue
         primary: "#007bff",
@@ -127,8 +127,9 @@ class Dropdown extends Component {
     this.setState({ isOpen: false });
   }
 
-  onOptionSelect(title) {
-    this.setState({ title, isOpen: false });
+  onOptionSelect(func) {
+    this.setState({ isOpen: false });
+    func()
   }
 
   toggleList() {
@@ -158,7 +159,7 @@ class Dropdown extends Component {
               list.map((item, index) => (
                 <ListItem
                   key={index}
-                  onClick={() => this.onOptionSelect(item.title)}
+                  onClick={() => this.onOptionSelect(item.function)}
                 >
                   {item.title}
                 </ListItem>

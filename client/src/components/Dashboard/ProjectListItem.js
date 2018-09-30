@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 `;
 
 const CompletionLine = styled.div`
-  background-color: ${props => props.completed ? `limegreen` : `#fc0`};
+  background-color: ${props => (props.completed ? `limegreen` : `#fc0`)};
   display: block;
   height: 100%;
   width: 3px;
@@ -40,7 +40,7 @@ class ProjectListItem extends Component {
         className="list-group-item list-group-item-action"
       >
         <Wrapper>
-          <CompletionLine />
+          <CompletionLine completed={this.props.project.completed} />
           <Title>
             <div>{title}</div>
           </Title>

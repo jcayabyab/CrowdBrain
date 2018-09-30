@@ -31,7 +31,7 @@ export const createFeature = projectId => async dispatch => {
 };
 
 export const editFeature = (featureId, values) => async dispatch => {
-  const { title, description, dateDue } = values;
+  const { title, description, dateDue, completed } = values;
 
   const body = { featureId };
   if (title) {
@@ -42,6 +42,9 @@ export const editFeature = (featureId, values) => async dispatch => {
   }
   if (dateDue) {
     body.dateDue = dateDue.getTime();
+  }
+  if (typeof completed !== "undefined") {
+    body.completed = completed;
   }
 
   const res = await axios.post("/api/feature/edit", body);

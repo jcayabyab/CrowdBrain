@@ -7,7 +7,8 @@ const projectSchema = new Schema({
   dateCreated: Number,
   dateDue: Number,
   _user: { type: Schema.Types.ObjectId, ref: "users" },
-  completed: {type: Boolean, default: false}
+  completed: {type: Boolean, default: false},
+  isPrivate: {type: Boolean, default: false}
 });
 
 mongoose.model("projects", projectSchema);
