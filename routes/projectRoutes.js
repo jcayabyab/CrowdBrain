@@ -11,7 +11,6 @@ module.exports = app => {
       "_user",
       "_id firstName lastName"
     );
-    console.log(projects);
     res.send(projects);
   });
 

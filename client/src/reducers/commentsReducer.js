@@ -12,8 +12,7 @@ export default function(state = null, action) {
   switch (action.type) {
     case GET_COMMENTS:
       const reversedArray = [...action.payload];
-      reversedArray.sort((a, b) => b.dateCreated - a.dateCreated);
-
+      
       return _.mapKeys(reversedArray, "_id");
     case CREATE_COMMENT: {
       let newState = { [action.payload._id]: action.payload, ...state };

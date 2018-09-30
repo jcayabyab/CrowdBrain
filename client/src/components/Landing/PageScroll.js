@@ -41,7 +41,6 @@ class PageScroll extends Component {
   }
 
   renderNumbers() {
-    console.log(this.props.pages);
     const numbers = [];
     const bold = { fontWeight: "bold" };
     for (let i = 1; i <= this.props.pages; i++) {
