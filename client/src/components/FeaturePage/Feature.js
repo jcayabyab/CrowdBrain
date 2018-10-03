@@ -47,7 +47,7 @@ class Feature extends Component {
       const list = [
         // for dropdown
         {
-          title: `Mark as ${project.completed ? "not " : ""}completed`,
+          title: `Mark as ${feature.completed ? "not " : ""}completed`,
           function: () =>
             editFeature(feature._id, { completed: !project.completed })
         },
