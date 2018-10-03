@@ -28,7 +28,7 @@ export const getProject = projectId => async dispatch => {
   dispatch({ type: UPDATE_PROJECTS, payload: res.data });
 };
 
-export const createProject = values => async dispatch => {
+export const createProject = () => async dispatch => {
   const res = await axios.post("/api/project/new");
 
   dispatch({ type: UPDATE_PROJECTS, payload: res.data });
