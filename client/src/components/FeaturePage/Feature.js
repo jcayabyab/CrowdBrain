@@ -8,14 +8,9 @@ import { getProject } from "../../actions/projectActions";
 import {
   getFeature,
   editFeature,
-  deleteFeature,
-  wipeFeatures
+  deleteFeature
 } from "../../actions/featureActions";
-import {
-  getComments,
-  createComment,
-  wipeComments
-} from "../../actions/commentActions";
+import { getComments, createComment } from "../../actions/commentActions";
 import LoadingWheel from "../utils/LoadingWheel";
 import Detail from "../utils/Detail";
 import SubtaskList from "./SubtaskList";
@@ -38,22 +33,34 @@ const ProjectText = styled(Link)`
 
 class Feature extends Component {
   async componentDidMount() {
-    await this.props.getProject(this.props.match.params.projectId);
     await this.props.getFeature(this.props.match.params.featureId);
     this.props.getComments(this.props.feature._id);
-    this.props.fetchOwner(this.props.project._user);
+    this.props.fetchOwner(this.props.feature._user);
   }
 
   render() {
-    const { project, feature, editFeature } = this.props;
+    const { feature, editFeature } = this.props;
     const projectURL = `/p/${this.props.match.params.projectId}`;
 
-    if (project && feature) {
+    if (feature) {
+      const project = feature._project;
+      const list = [
+        // for dropdown
+        {
+          title: `Mark as ${project.completed ? "not " : ""}completed`,
+          function: () =>
+            editFeature(feature._id, { completed: !project.completed })
+        },
+        { title: `Delete`, function: this.handleDelete.bind(this) }
+      ];
+
       return (
         <div>
           <PageHeader
             backURL={projectURL}
-            onDeleteClick={this.handleDelete.bind(this)}
+            list={list}
+            owner={feature._user}
+            object={feature}
           >
             <ProjectText to={projectURL}>{project.title}</ProjectText>
             <i className="fas fa-caret-right" style={{ margin: "0px 15px" }} />
@@ -100,11 +107,9 @@ class Feature extends Component {
   }
 }
 
-function mapStateToProps({ projects, features, comments, owner }, ownProps) {
+function mapStateToProps({ features }, ownProps) {
   return {
-    project: projects ? projects[ownProps.match.params.projectId] : null,
-    feature: features ? features[ownProps.match.params.featureId] : null,
-    owner
+    feature: features ? features[ownProps.match.params.featureId] : null
   };
 }
 
@@ -117,8 +122,6 @@ export default connect(
     editFeature,
     deleteFeature,
     getComments,
-    createComment,
-    wipeFeatures,
-    wipeComments
+    createComment
   }
 )(withRouter(Feature));

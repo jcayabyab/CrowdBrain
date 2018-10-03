@@ -29,15 +29,31 @@ class Project extends Component {
     const { project, editProject } = this.props;
 
     if (project) {
+      const list = [
+        // for dropdown
+        {
+          title: `Make ${project.isPrivate ? "public" : "private"}`,
+          function: () =>
+            editProject(project._id, { isPrivate: !project.isPrivate })
+        },
+        {
+          title: `Mark as ${project.completed ? "not " : ""}completed`,
+          function: () =>
+            editProject(project._id, { completed: !project.completed })
+        },
+        { title: `Delete`, function: this.handleDelete.bind(this) }
+      ];
       return (
         <div>
           <PageHeader
             backURL="/dashboard"
-            onDeleteClick={this.handleDelete.bind(this)}
+            owner={project._user}
+            list={list}
+            object={project}
           >
             <Editable
               object={project}
-              onSubmit={values => this.props.editProject(project._id, values)}
+              onSubmit={values => editProject(project._id, values)}
               section="title"
               defaultTitle="New Project"
             >

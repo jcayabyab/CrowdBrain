@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 import BackButton from "./BackButton";
-import DeleteButton from "./DeleteButton";
+import Dropdown from "./Dropdown";
 import { connect } from "react-redux";
 
 const Container = styled.div`
   font-size: 16pt;
   display: grid;
-  grid-template-columns: 1fr minmax(80%, 1fr) 1fr;
+  grid-template-columns: 1fr minmax(60%, 1fr) 1fr;
   align-items: center;
 
   & > * {
@@ -32,7 +32,7 @@ const OwnerText = styled.div`
 `;
 
 const PageHeader = props => {
-  const { backURL, children, user, owner, onDeleteClick } = props;
+  const { backURL, children, user, owner, list } = props;
 
   return (
     <Container>
@@ -42,21 +42,19 @@ const PageHeader = props => {
       <HeaderText>{children}</HeaderText>
       <Right>
         {owner._id === user._id ? (
-          <DeleteButton onClick={onDeleteClick} />
+          <Dropdown list={list} />
         ) : (
-          owner.firstName && (
-            <OwnerText>
-              {`created by ${owner.firstName} ${owner.lastName}`}
-            </OwnerText>
-          )
+          <OwnerText>
+            {`created by ${owner.firstName} ${owner.lastName}`}
+          </OwnerText>
         )}
       </Right>
     </Container>
   );
 };
 
-function mapStateToProps({ user, owner }) {
-  return { user, owner };
+function mapStateToProps({ user }) {
+  return { user };
 }
 
 export default connect(mapStateToProps)(PageHeader);

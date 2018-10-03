@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 `;
 
 const CompletionLine = styled.div`
-  background-color: limegreen;
+  background-color: ${props => props.completed ? `limegreen` : `#fc0`};
   display: block;
   height: 100%;
   width: 3px;
@@ -39,7 +39,7 @@ const FeatureListItem = ({ feature, projectId }) => {
       className="list-group-item list-group-item-action"
     >
       <Wrapper>
-        <CompletionLine />
+        <CompletionLine completed={feature.completed} />
         <Title>
           <div>{title}</div>
         </Title>

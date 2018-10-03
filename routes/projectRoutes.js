@@ -8,7 +8,8 @@ const Comment = mongoose.model("comments");
 module.exports = app => {
   app.get("/api/projects/", async (req, res) => {
     const projects = await Project.find({ _user: req.user.id }).populate(
-      "_user"
+      "_user",
+      "_id firstName lastName"
     );
     res.send(projects);
   });
@@ -16,21 +17,29 @@ module.exports = app => {
   app.post("/api/projects/main", async (req, res) => {
     const { page, projectsPerPage } = req.body;
 
-    const projects = await Project.find({title: {"$ne": "New Project"}})
+    const projects = await Project.find({
+      title: { $ne: "New Project" },
+      $or: [{ isPrivate: false }, { isPrivate: { $exists: false } }] // compatability for older projects
+    })
       .skip((page - 1) * projectsPerPage)
-      .populate("_user")
+      .populate("_user", "_id firstName lastName")
       .sort({ dateCreated: -1 })
       .limit(projectsPerPage);
 
-    const count = await Project.countDocuments({title: {"$ne": "New Project"}});
+    const count = await Project.countDocuments({
+      title: { $ne: "New Project" }
+    });
 
-    res.send({projects, count});
+    res.send({ projects, count });
   });
 
   app.post("/api/project", async (req, res) => {
     const { projectId } = req.body;
 
-    const project = await Project.findById(projectId).populate("_user");
+    const project = await Project.findById(projectId).populate(
+      "_user",
+      "_id firstName lastName"
+    );
 
     res.send(project);
   });
@@ -51,14 +60,17 @@ module.exports = app => {
     const { projectId } = req.body;
 
     const set = { ...req.body };
-    delete set.projectId;
+    delete set.projectId; // don't want to mutate req.body
 
     await Project.findByIdAndUpdate(projectId, {
       $set: set
     });
 
     //returns edited project
-    const project = await Project.findById(projectId);
+    const project = await Project.findById(projectId).populate(
+      "_user",
+      "_id firstName lastName"
+    );
 
     res.send(project);
   });
