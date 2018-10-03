@@ -49,7 +49,7 @@ class Feature extends Component {
         {
           title: `Mark as ${feature.completed ? "not " : ""}completed`,
           function: () =>
-            editFeature(feature._id, { completed: !project.completed })
+            editFeature(feature._id, { completed: !feature.completed })
         },
         { title: `Delete`, function: this.handleDelete.bind(this) }
       ];
