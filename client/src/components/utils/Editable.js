@@ -9,8 +9,8 @@ class Editable extends Component {
   state = { editing: false, hovered: false };
 
   componentDidMount() {
-    const { object, section, defaultTitle } = this.props;
-    if (object[section] === defaultTitle) {
+    const { object, section, defaultTitle, user, owner } = this.props;
+    if (object[section] === defaultTitle && user._id === owner._id) {
       this.setState({ editing: true });
     }
   }
